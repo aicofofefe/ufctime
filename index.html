@@ -1,0 +1,1165 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UFC ALERT | 원하는 경기만, 놓치지 않게</title>
+  <style>
+    :root {
+      --navy: #111a30;
+      --navy2: #1c2944;
+      --pink: #ed275d;
+      --soft-pink: #fff0f5;
+      --text: #1a2235;
+      --muted: #7c879d;
+      --bg: #f5f7fb;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Malgun Gothic", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    button {
+      font: inherit;
+      cursor: pointer;
+      border: none;
+    }
+
+    button:disabled {
+      opacity: .5;
+      cursor: not-allowed;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 230px 1fr 280px;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      background: var(--navy);
+      color: white;
+      padding: 30px 18px;
+    }
+
+    .brand {
+      font-size: 23px;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+
+    .brand span { color: var(--pink); }
+
+    .brand-desc {
+      font-size: 11px;
+      color: #9aa8c0;
+      margin-bottom: 45px;
+    }
+
+    .side-label {
+      color: #8090ad;
+      font-size: 11px;
+      letter-spacing: 2px;
+      margin: 0 10px 15px;
+    }
+
+    .nav-button {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      margin-bottom: 8px;
+      background: transparent;
+      color: #bdc7d9;
+      text-align: left;
+      border-radius: 10px;
+      font-size: 13px;
+    }
+
+    .nav-button:hover {
+      background: #26344f;
+    }
+
+    .nav-button.active {
+      background: #2b3650;
+      color: white;
+      border-left: 4px solid var(--pink);
+    }
+
+    .sidebar-footer {
+      margin-top: 60px;
+      font-size: 11px;
+      line-height: 2;
+      color: #aab6cb;
+      border-top: 1px solid #354159;
+      padding-top: 20px;
+    }
+
+    .workspace {
+      padding: 35px 30px;
+      text-align: center;
+    }
+
+    .eyebrow {
+      color: var(--pink);
+      font-weight: 900;
+      letter-spacing: 2px;
+      font-size: 12px;
+    }
+
+    h1 {
+      font-size: 31px;
+      line-height: 1.4;
+      margin: 18px 0 10px;
+    }
+
+    .description {
+      color: #8490a5;
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    .phone {
+      width: 340px;
+      height: 670px;
+      max-width: 100%;
+      background: white;
+      border: 9px solid #151e33;
+      border-radius: 42px;
+      margin: 35px auto 20px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 22px 50px rgba(17,26,48,.2);
+    }
+
+    .phone:before {
+      content: "";
+      position: absolute;
+      width: 100px;
+      height: 23px;
+      background: #151e33;
+      border-radius: 0 0 16px 16px;
+      left: 50%;
+      top: 0;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .phone-screen {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .status-bar {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 22px 8px;
+      font-size: 10px;
+      font-weight: bold;
+      height: 40px;
+      flex-shrink: 0;
+    }
+
+    .screen-content {
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+      padding: 10px 16px 16px;
+      text-align: left;
+    }
+
+    .app-logo {
+      text-align: center;
+      color: var(--pink);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      margin: 10px 0 25px;
+    }
+
+    .screen-title {
+      text-align: center;
+      font-size: 19px;
+      font-weight: 900;
+      margin: 0 0 8px;
+    }
+
+    .screen-desc {
+      text-align: center;
+      color: #929eb0;
+      font-size: 10px;
+      line-height: 1.7;
+      margin-bottom: 22px;
+    }
+
+    .tabs {
+      display: flex;
+      background: #f1f3f7;
+      border-radius: 12px;
+      padding: 4px;
+      margin-bottom: 15px;
+    }
+
+    .tab {
+      flex: 1;
+      padding: 10px 5px;
+      background: transparent;
+      border-radius: 9px;
+      color: #8896aa;
+      font-size: 11px;
+      font-weight: bold;
+    }
+
+    .tab.active {
+      color: white;
+      background: var(--pink);
+    }
+
+    .fight-card {
+      display: block;
+      width: 100%;
+      background: #f6f7fb;
+      border: 1px solid #e9edf4;
+      padding: 15px;
+      border-radius: 13px;
+      margin-bottom: 10px;
+      text-align: left;
+      color: var(--text);
+    }
+
+    .fight-card:hover {
+      background: #fff3f7;
+      border-color: #f5b9ca;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      gap: 5px;
+    }
+
+    .tag {
+      color: var(--pink);
+      font-size: 10px;
+      font-weight: 900;
+    }
+
+    .time {
+      color: #8996ab;
+      font-size: 10px;
+      font-weight: bold;
+    }
+
+    .fight-name {
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .fight-info {
+      color: #95a2b5;
+      font-size: 10px;
+      margin-top: 8px;
+    }
+
+    .primary {
+      display: block;
+      width: 100%;
+      color: white;
+      background: var(--pink);
+      padding: 13px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 900;
+      margin-top: 14px;
+    }
+
+    .primary:hover { background: #d91a50; }
+
+    .secondary {
+      background: #fff0f5;
+      color: #cb2351;
+    }
+
+    .section-label {
+      text-align: center;
+      font-size: 11px;
+      font-weight: bold;
+      margin: 22px 0 12px;
+    }
+
+    .preview {
+      background: #f8e9ef;
+      padding: 16px;
+      text-align: center;
+      border-radius: 12px;
+      font-size: 11px;
+      line-height: 2;
+    }
+
+    .hint {
+      padding: 13px;
+      color: #65738c;
+      font-size: 10px;
+      line-height: 1.7;
+      background: var(--soft-pink);
+      border-radius: 10px;
+      text-align: center;
+      margin: 15px 0;
+    }
+
+    .hero {
+      background: linear-gradient(135deg,#1d2b4c,#111a30);
+      border-radius: 14px;
+      color: white;
+      text-align: center;
+      padding: 23px 10px;
+    }
+
+    .hero h3 {
+      margin: 15px 0;
+      font-size: 15px;
+    }
+
+    .hero p {
+      font-size: 10px;
+      color: #adb8ce;
+    }
+
+    .timeline {
+      display: flex;
+      justify-content: space-between;
+      gap: 5px;
+      margin: 20px 0;
+    }
+
+    .step {
+      flex: 1;
+      text-align: center;
+    }
+
+    .step-dot {
+      width: 21px;
+      height: 21px;
+      margin: auto;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: #b8c2d3;
+      color: white;
+      font-size: 10px;
+    }
+
+    .step.done .step-dot,
+    .step.current .step-dot {
+      background: var(--pink);
+    }
+
+    .step.current .step-dot {
+      box-shadow: 0 0 0 5px #ffedf3;
+    }
+
+    .step-label {
+      font-size: 9px;
+      line-height: 1.7;
+      color: #8190a5;
+      margin-top: 12px;
+    }
+
+    .select-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      padding: 13px 11px;
+      border-radius: 12px;
+      background: #f6f7fb;
+      margin-bottom: 9px;
+      text-align: left;
+    }
+
+    .select-card.selected {
+      background: #fff0f5;
+    }
+
+    .check-circle {
+      width: 21px;
+      height: 21px;
+      border-radius: 50%;
+      border: 2px solid #b6c2d4;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      color: white;
+      font-size: 12px;
+    }
+
+    .selected .check-circle {
+      background: var(--pink);
+      border-color: var(--pink);
+    }
+
+    .select-info { flex: 1; }
+
+    .select-info strong {
+      font-size: 11px;
+    }
+
+    .select-info p {
+      font-size: 10px;
+      margin: 5px 0 0;
+    }
+
+    .alert-card {
+      background: #f6f7fb;
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 10px;
+    }
+
+    .alert-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .alert-name {
+      font-size: 12px;
+      font-weight: 900;
+      margin: 8px 0;
+    }
+
+    .alert-status {
+      font-size: 10px;
+      color: var(--pink);
+      font-weight: bold;
+      margin-top: 9px;
+    }
+
+    .switch {
+      width: 38px;
+      height: 22px;
+      background: #b5bfd0;
+      border-radius: 20px;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .switch:after {
+      content: "";
+      width: 16px;
+      height: 16px;
+      position: absolute;
+      left: 3px;
+      top: 3px;
+      background: white;
+      border-radius: 50%;
+      transition: .2s;
+    }
+
+    .switch.on { background: var(--pink); }
+    .switch.on:after { left: 19px; }
+
+    .bottom-nav {
+      display: flex;
+      justify-content: space-around;
+      border-top: 1px solid #edf0f4;
+      height: 60px;
+      flex-shrink: 0;
+      padding: 6px;
+    }
+
+    .bottom-nav button {
+      flex: 1;
+      border-radius: 10px;
+      color: #9ba8bb;
+      background: white;
+      font-size: 11px;
+    }
+
+    .bottom-nav button.active {
+      background: var(--soft-pink);
+      color: var(--pink);
+      font-weight: 900;
+    }
+
+    .lock {
+      flex: 1;
+      padding: 25px 16px;
+      color: white;
+      background:
+        radial-gradient(circle at 85% 100%,#ed275d,transparent 60%),
+        linear-gradient(150deg,#152753,#1d1b3b 70%);
+    }
+
+    .lock-date {
+      text-align: center;
+      margin-top: 42px;
+      font-size: 11px;
+    }
+
+    .lock-time {
+      font-size: 65px;
+      text-align: center;
+      margin: 10px 0 40px;
+      font-weight: 300;
+    }
+
+    .notification {
+      border: 1px solid #ffffff88;
+      border-radius: 15px;
+      background: #ffffff33;
+      color: white;
+      padding: 15px;
+      margin-bottom: 14px;
+      width: 100%;
+      text-align: left;
+    }
+
+    .notification strong {
+      display: block;
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+
+    .notification p {
+      font-size: 11px;
+      margin: 5px 0;
+      line-height: 1.7;
+    }
+
+    .panel {
+      background: white;
+      padding: 35px 20px;
+      border-left: 1px solid #e5eaf2;
+    }
+
+    .panel h2 { font-size: 18px; }
+
+    .panel > p {
+      color: #8290a6;
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    .panel-card {
+      border: 1px solid #e5eaf2;
+      padding: 18px;
+      border-radius: 15px;
+      margin: 20px 0;
+      font-size: 12px;
+    }
+
+    .panel-card h3 {
+      font-size: 13px;
+      margin-top: 0;
+    }
+
+    .panel-step {
+      padding: 12px 0;
+      line-height: 1.6;
+    }
+
+    .panel-step b { color: var(--pink); }
+
+    .panel-button {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      color: white;
+      background: var(--pink);
+      font-size: 12px;
+      font-weight: bold;
+      margin: 8px 0;
+    }
+
+    .panel-button.reset {
+      background: #eef1f6;
+      color: #67758c;
+    }
+
+    .panel-note {
+      background: #f3f5f9;
+      border-radius: 10px;
+      padding: 14px;
+      color: #69788f;
+      line-height: 1.8;
+      font-size: 11px;
+    }
+
+    @media (max-width: 1100px) {
+      .layout {
+        grid-template-columns: 190px 1fr;
+      }
+      .panel {
+        grid-column: 2;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .layout { display: block; }
+      .sidebar { display: none; }
+      .workspace { padding: 25px 12px; }
+      .workspace h1 { font-size: 25px; }
+      .phone { margin: 30px auto; }
+      .panel { border-top: 1px solid #e5eaf2; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="layout">
+
+    <aside class="sidebar">
+      <div class="brand">UFC <span>ALERT</span></div>
+      <div class="brand-desc">LIVE FIGHT NOTIFICATION</div>
+      <div class="side-label">MVP SCREENS</div>
+      <nav id="sidebarNav"></nav>
+      <div class="sidebar-footer">
+        원하는 경기만, 놓치지 않게<br>
+        UFC 경기 진행 기반 맞춤 알림<br>
+        MVP 시뮬레이션
+      </div>
+    </aside>
+
+    <main class="workspace">
+      <div class="eyebrow">MVP INTERACTIVE DEMO</div>
+      <h1>경기 시작은 달라도,<br>알림은 정확한 순간에.</h1>
+      <p class="description">
+        UFC 실시간 경기 맞춤 알림 서비스<br>
+        원하는 경기를 선택하고 시작 임박 알림을 체험하세요.
+      </p>
+
+      <div class="phone">
+        <div class="phone-screen" id="phoneScreen"></div>
+      </div>
+
+      <p class="description">
+        ※ 실제 경기 데이터가 아닌 MVP 시연용 데이터입니다.
+      </p>
+    </main>
+
+    <aside class="panel">
+      <h2>서비스 시연</h2>
+      <p>경기를 선택한 뒤 상태를 변경하여 알림 과정을 확인할 수 있습니다.</p>
+
+      <div class="panel-card">
+        <h3>알림 처리 흐름</h3>
+        <div class="panel-step"><b>01</b> 관심 경기 선택</div>
+        <div class="panel-step"><b>02</b> 경기 상태 변경</div>
+        <div class="panel-step"><b>03</b> 맞춤 알림 수신</div>
+      </div>
+
+      <div class="panel-card">
+        <h3>경기 상태 시뮬레이션</h3>
+        <p id="demoStatus"></p>
+        <button class="panel-button" onclick="endCoMain()">
+          코메인 경기 종료 처리
+        </button>
+        <button class="panel-button reset" onclick="resetDemo()">
+          시연 초기화
+        </button>
+      </div>
+
+      <div class="panel-note">
+        본 서비스는 UFC 경기의 예정 시작 시간보다
+        직전 경기의 종료 상태를 기준으로
+        알림을 제공하는 것을 목표로 합니다.
+        실제 푸시 알림과 실시간 API는 연결되지 않았습니다.
+      </div>
+    </aside>
+
+  </div>
+
+  <script>
+    // MVP 시연용 데이터
+    const fights = [
+      {
+        id: "early",
+        type: "초기 예선",
+        name: "식니스 vs 초푸로프",
+        time: "23:00",
+        rounds: "3R",
+        division: "초기 예선"
+      },
+      {
+        id: "prelim",
+        type: "예선 카드",
+        name: "무르자카노프 vs 레예스",
+        time: "01:00",
+        rounds: "3R",
+        division: "라이트헤비급"
+      },
+      {
+        id: "card",
+        type: "메인 카드",
+        name: "애런 피코 vs 케이타",
+        time: "03:00",
+        rounds: "3R",
+        division: "메인 카드"
+      },
+      {
+        id: "co",
+        type: "코메인 이벤트",
+        name: "얀 vs 드발리쉬빌리",
+        time: "03:00 이후",
+        rounds: "5R",
+        division: "밴텀급 타이틀"
+      },
+      {
+        id: "main",
+        type: "메인 이벤트",
+        name: "볼카노프스키 vs 에블로예프",
+        time: "03:00 이후",
+        rounds: "5R",
+        division: "페더급 타이틀"
+      }
+    ];
+
+    const menu = [
+      ["list", "경기 목록"],
+      ["detail", "경기 상세"],
+      ["select", "경기 선택"],
+      ["alerts", "내 알림"],
+      ["receive", "알림 수신"]
+    ];
+
+    let page = "list";
+    let detailId = "main";
+    let nextTab = false;
+    let selected = ["co", "main"];
+    let enabled = {
+      early: false,
+      prelim: false,
+      card: false,
+      co: true,
+      main: true
+    };
+    let coEnded = false;
+    let notificationSent = false;
+
+    // 저장된 알림 설정 불러오기
+    try {
+      const saved = JSON.parse(localStorage.getItem("ufcAlerts"));
+      if (saved) {
+        enabled = { ...enabled, ...saved };
+      }
+    } catch (error) {
+      console.log("저장된 데이터 없음");
+    }
+
+    function save() {
+      try {
+        localStorage.setItem("ufcAlerts", JSON.stringify(enabled));
+      } catch (error) {
+        console.log("저장 실패");
+      }
+    }
+
+    function findFight(id) {
+      return fights.find(f => f.id === id);
+    }
+
+    function navigate(name) {
+      page = name;
+      render();
+    }
+
+    function screen(title, subtitle, content) {
+      return `
+        <div class="status-bar">
+          <span>9:41</span>
+          <span>●●● ▰</span>
+        </div>
+
+        <div class="screen-content">
+          <div class="app-logo">UFC ALERT</div>
+          <h2 class="screen-title">${title}</h2>
+          <div class="screen-desc">${subtitle}</div>
+          ${content}
+        </div>
+
+        <div class="bottom-nav">
+          <button class="${["list","detail","select"].includes(page) ? "active" : ""}"
+            onclick="navigate('list')">● 경기</button>
+          <button class="${page === "alerts" ? "active" : ""}"
+            onclick="navigate('alerts')">◉ 내 알림</button>
+          <button onclick="navigate('select')">⚙ 설정</button>
+        </div>
+      `;
+    }
+
+    function fightCard(f) {
+      return `
+        <button class="fight-card" onclick="openDetail('${f.id}')">
+          <div class="card-header">
+            <span class="tag">${f.type}</span>
+            <span class="time">${f.time}</span>
+          </div>
+          <div class="fight-name">${f.name}</div>
+          <div class="fight-info">
+            ${f.division} · ${f.rounds} · 상세 보기
+          </div>
+        </button>
+      `;
+    }
+
+    // 화면 1: 경기 목록
+    function listScreen() {
+      let content = `
+        <div class="tabs">
+          <button class="tab ${!nextTab ? "active" : ""}"
+            onclick="nextTab=false;render()">메인 경기</button>
+          <button class="tab ${nextTab ? "active" : ""}"
+            onclick="nextTab=true;render()">다음 대회</button>
+        </div>
+      `;
+
+      if (!nextTab) {
+        content += fights
+          .filter(f => f.id === "co" || f.id === "main")
+          .map(fightCard).join("");
+
+        content += `
+          <div class="section-label">다음 대회 · 11월 1일</div>
+          <div class="preview">
+            <strong>다음 주 메인 카드</strong><br>
+            모이카노 vs 톰 놀란<br>
+            브라운 vs 스미스
+          </div>
+          <button class="primary secondary"
+            onclick="navigate('select')">
+            전체 경기 알림 선택하기
+          </button>
+        `;
+      } else {
+        content += `
+          <div class="preview">
+            <strong>11월 1일 · 다음 대회</strong><br>
+            메인 · 모이카노 vs 톰 놀란<br>
+            코메인 · 브라운 vs 스미스
+          </div>
+        `;
+      }
+
+      content += `
+        <div class="hint">
+          03:00은 메인 카드 시작 예정 시각입니다.<br>
+          개별 경기 시작 시각은 진행에 따라 변동됩니다.
+        </div>
+      `;
+
+      return screen(
+        "UFC 333 경기 일정",
+        "10/24(토) 23시 · 10/25(일) 01시 · 03시",
+        content
+      );
+    }
+
+    function openDetail(id) {
+      detailId = id;
+      navigate("detail");
+    }
+
+    // 화면 2: 경기 상세
+    function detailScreen() {
+      const f = findFight(detailId);
+
+      return screen(
+        "UFC 333 경기 상세",
+        "경기 정보 및 알림 설정",
+        `
+        <div class="hero">
+          <span class="tag">${f.type} · ${f.rounds}</span>
+          <h3>${f.name}</h3>
+          <p>${f.division} · ${f.time}</p>
+        </div>
+
+        <div class="section-label">경기 진행 단계 (시연)</div>
+
+        <div class="timeline">
+          <div class="step done">
+            <div class="step-dot">✓</div>
+            <div class="step-label">초기 예선<br>종료</div>
+          </div>
+
+          <div class="step done">
+            <div class="step-dot">✓</div>
+            <div class="step-label">예선<br>종료</div>
+          </div>
+
+          <div class="step ${coEnded ? "done" : "current"}">
+            <div class="step-dot">${coEnded ? "✓" : "●"}</div>
+            <div class="step-label">
+              코메인<br>${coEnded ? "종료" : "진행 중"}
+            </div>
+          </div>
+
+          <div class="step ${coEnded ? "current" : ""}">
+            <div class="step-dot">●</div>
+            <div class="step-label">
+              메인<br>${coEnded ? "시작 임박" : "대기"}
+            </div>
+          </div>
+        </div>
+
+        <div class="hint">
+          직전 경기의 종료 상태를 감지하여<br>
+          선택한 경기의 알림을 발송합니다.
+        </div>
+
+        <button class="primary" onclick="toggleAlert('${f.id}')">
+          ${enabled[f.id] ? "✓ 알림 끄기" : "이 경기 알림 켜기"}
+        </button>
+        `
+      );
+    }
+
+    // 화면 3: 경기 선택
+    function selectScreen() {
+      let content = "";
+
+      fights.forEach(f => {
+        const checked = selected.includes(f.id);
+
+        content += `
+          <button
+            class="select-card ${checked ? "selected" : ""}"
+            onclick="toggleSelected('${f.id}')">
+
+            <div class="check-circle">${checked ? "✓" : ""}</div>
+
+            <div class="select-info">
+              <strong>${f.type} · ${f.rounds}</strong>
+              <p>${f.name}</p>
+            </div>
+
+            <div class="time">${f.time}</div>
+          </button>
+        `;
+      });
+
+      content += `
+        <button class="primary"
+          onclick="registerSelected()"
+          ${selected.length === 0 ? "disabled" : ""}>
+          선택한 ${selected.length}경기 알림 켜기
+        </button>
+
+        <div class="hint">
+          알림은 경기별로 설정할 수 있습니다.<br>
+          개별 경기 시작 시각은 고정되지 않습니다.
+        </div>
+      `;
+
+      return screen(
+        "UFC 333 경기 선택",
+        "알림 받을 경기를 선택하세요",
+        content
+      );
+    }
+
+    function toggleSelected(id) {
+      if (selected.includes(id)) {
+        selected = selected.filter(v => v !== id);
+      } else {
+        selected.push(id);
+      }
+      render();
+    }
+
+    function registerSelected() {
+      selected.forEach(id => enabled[id] = true);
+      save();
+      navigate("alerts");
+    }
+
+    function toggleAlert(id) {
+      enabled[id] = !enabled[id];
+      save();
+      render();
+    }
+
+    // 화면 4: 내 알림 관리
+    function alertsScreen() {
+      let content = "";
+      const count = fights.filter(f => enabled[f.id]).length;
+
+      fights.forEach(f => {
+        content += `
+          <div class="alert-card">
+            <div class="alert-top">
+              <span class="tag">${f.type}</span>
+
+              <button
+                class="switch ${enabled[f.id] ? "on" : ""}"
+                onclick="toggleAlert('${f.id}')"
+                aria-label="${f.name} 알림 변경">
+              </button>
+            </div>
+
+            <div class="alert-name">${f.name}</div>
+
+            <div class="fight-info">
+              ${f.division} · ${f.rounds} · ${f.time}
+            </div>
+
+            <div class="alert-status">
+              ${!enabled[f.id] ? "알림 꺼짐" :
+                f.id === "main" && notificationSent
+                  ? "알림 발송 완료" : "알림 대기"}
+            </div>
+          </div>
+        `;
+      });
+
+      return screen(
+        "UFC 333 내 알림",
+        `켜진 알림 ${count}개 · 경기별 ON/OFF 관리`,
+        content
+      );
+    }
+
+    // 화면 5: 알림 수신
+    function receiveScreen() {
+      if (!notificationSent) {
+        return screen(
+          "알림 수신 시연",
+          "경기 상태 변경 후 알림을 확인하세요",
+          `
+          <div class="hint">
+            아직 수신된 메인 이벤트 알림이 없습니다.
+          </div>
+
+          <button class="primary" onclick="endCoMain()"
+            ${coEnded ? "disabled" : ""}>
+            코메인 경기 종료 처리
+          </button>
+          `
+        );
+      }
+
+      return `
+        <div class="status-bar" style="background:#152753;color:white">
+          <span>9:41</span>
+          <span>●●● ▰</span>
+        </div>
+
+        <div class="lock">
+          <button class="notification"
+            onclick="navigate('alerts')">
+            〈 내 알림으로 돌아가기
+          </button>
+
+          <div class="lock-date">
+            10월 25일 일요일 · 시연용
+          </div>
+
+          <div class="lock-time">05:12</div>
+
+          <button class="notification"
+            onclick="openDetail('main')">
+            <strong>🔴 UFC 맞춤 알림 · 지금</strong>
+            <p><b>메인 이벤트 시작 임박</b></p>
+            <p>볼카노프스키 vs 에블로예프</p>
+            <p>직전 경기 종료가 감지되었습니다.</p>
+          </button>
+
+          <div class="notification">
+            <strong>🔴 UFC 맞춤 알림 · 12분 전</strong>
+            <p><b>코메인 경기 진행</b></p>
+            <p>얀 vs 드발리쉬빌리</p>
+          </div>
+        </div>
+      `;
+    }
+
+    // 경기 종료 시뮬레이션
+    function endCoMain() {
+      if (coEnded) return;
+
+      coEnded = true;
+
+      if (enabled.main) {
+        notificationSent = true;
+        page = "receive";
+      } else {
+        alert("경기가 종료되었지만 메인 이벤트 알림이 꺼져 있습니다.");
+      }
+
+      render();
+    }
+
+    function resetDemo() {
+      coEnded = false;
+      notificationSent = false;
+      selected = ["co", "main"];
+      enabled = {
+        early: false,
+        prelim: false,
+        card: false,
+        co: true,
+        main: true
+      };
+      nextTab = false;
+      page = "list";
+      save();
+      render();
+    }
+
+    // 화면 렌더링
+    function render() {
+      let nav = "";
+
+      menu.forEach(item => {
+        nav += `
+          <button
+            class="nav-button ${page === item[0] ? "active" : ""}"
+            onclick="navigate('${item[0]}')">
+            ${item[1]}
+          </button>
+        `;
+      });
+
+      document.getElementById("sidebarNav").innerHTML = nav;
+
+      let html = "";
+
+      switch (page) {
+        case "list":
+          html = listScreen();
+          break;
+        case "detail":
+          html = detailScreen();
+          break;
+        case "select":
+          html = selectScreen();
+          break;
+        case "alerts":
+          html = alertsScreen();
+          break;
+        case "receive":
+          html = receiveScreen();
+          break;
+        default:
+          html = listScreen();
+      }
+
+      document.getElementById("phoneScreen").innerHTML = html;
+
+      document.getElementById("demoStatus").innerHTML =
+        coEnded
+          ? "🟢 코메인 경기 종료"
+          : "🟠 코메인 경기 진행 중";
+    }
+
+    render();
+  </script>
+</body>
+</html>
