@@ -3,1085 +3,1158 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>UFC ALERT | 원하는 경기만, 놓치지 않게</title>
-
 <style>
-:root {
-  --navy:#111a30;
-  --pink:#ed275d;
-  --soft:#fff0f5;
-  --text:#1a2235;
-  --muted:#8290a6;
-  --bg:#f5f7fb;
+:root{
+ --navy:#111a30;--pink:#ed275d;
+ --soft:#fff0f5;--text:#1a2235;
+ --muted:#8290a6;--bg:#f5f7fb
 }
-* {box-sizing:border-box}
-body {
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
-  font-family:"Malgun Gothic",Arial,sans-serif;
+*{box-sizing:border-box}
+body{
+ margin:0;background:var(--bg);color:var(--text);
+ font-family:"Malgun Gothic",Arial,sans-serif
 }
-button,select {font:inherit}
-button {border:0;cursor:pointer}
-button:disabled {opacity:.5;cursor:not-allowed}
-.layout {
-  display:grid;
-  grid-template-columns:230px minmax(0,1fr) 280px;
-  min-height:100vh;
+button,select{font:inherit}
+button{border:0;cursor:pointer}
+button:disabled{opacity:.5;cursor:not-allowed}
+.layout{
+ display:grid;grid-template-columns:230px minmax(0,1fr) 280px;
+ min-height:100vh
 }
-.sidebar {
-  background:var(--navy);
-  color:white;
-  padding:30px 18px;
+.sidebar{background:var(--navy);color:white;padding:30px 18px}
+.brand{font-size:23px;font-weight:900}
+.brand span{color:var(--pink)}
+.brand-desc{color:#9aa8c0;font-size:11px;margin:8px 0 45px}
+.side-label{
+ color:#8090ad;font-size:11px;
+ letter-spacing:2px;margin:0 10px 15px
 }
-.brand {font-size:23px;font-weight:900}
-.brand span {color:var(--pink)}
-.brand-desc {
-  color:#9aa8c0;
-  font-size:11px;
-  margin:8px 0 45px;
+.nav-button{
+ display:block;width:100%;padding:15px;margin-bottom:8px;
+ background:transparent;color:#bdc7d9;text-align:left;
+ border-radius:10px;font-size:13px
 }
-.side-label {
-  color:#8090ad;
-  font-size:11px;
-  letter-spacing:2px;
-  margin:0 10px 15px;
+.nav-button.active{
+ background:#2b3650;color:white;
+ border-left:4px solid var(--pink)
 }
-.nav-button {
-  display:block;
-  width:100%;
-  padding:15px;
-  margin-bottom:8px;
-  background:transparent;
-  color:#bdc7d9;
-  text-align:left;
-  border-radius:10px;
-  font-size:13px;
+.sidebar-footer{
+ margin-top:60px;padding-top:20px;
+ border-top:1px solid #354159;color:#aab6cb;
+ font-size:11px;line-height:2
 }
-.nav-button.active {
-  background:#2b3650;
-  color:white;
-  border-left:4px solid var(--pink);
+.workspace{padding:35px 20px;text-align:center}
+.eyebrow{
+ color:var(--pink);font-size:12px;
+ font-weight:900;letter-spacing:2px
 }
-.sidebar-footer {
-  margin-top:60px;
-  padding-top:20px;
-  border-top:1px solid #354159;
-  color:#aab6cb;
-  font-size:11px;
-  line-height:2;
+h1{font-size:30px;line-height:1.4}
+.description{
+ color:var(--muted);font-size:13px;line-height:1.8
 }
-.workspace {padding:35px 20px;text-align:center}
-.eyebrow {
-  color:var(--pink);
-  font-weight:900;
-  letter-spacing:2px;
-  font-size:12px;
+.control-bar{
+ display:flex;justify-content:center;align-items:center;
+ gap:9px;flex-wrap:wrap;margin:20px 0
 }
-h1 {font-size:30px;line-height:1.4}
-.description {
-  color:var(--muted);
-  font-size:13px;
-  line-height:1.8;
+.control-bar button{
+ background:white;color:#61718a;
+ border:1px solid #dee5f0;border-radius:12px;
+ padding:10px 14px;font-size:12px;font-weight:bold
 }
-.phone {
-  width:340px;
-  max-width:100%;
-  height:670px;
-  background:white;
-  border:9px solid #151e33;
-  border-radius:42px;
-  margin:30px auto 20px;
-  overflow:hidden;
-  position:relative;
-  box-shadow:0 22px 50px #111a3030;
+.control-bar button.active{
+ border-color:var(--pink);background:var(--soft);
+ color:var(--pink)
 }
-.phone:before {
-  content:"";
-  position:absolute;
-  width:100px;
-  height:23px;
-  background:#151e33;
-  border-radius:0 0 16px 16px;
-  left:50%;
-  top:0;
-  transform:translateX(-50%);
-  z-index:5;
+.source-chip{
+ display:inline-block;padding:5px 9px;
+ border-radius:20px;background:#ebfbf2;
+ color:#21704b;font-size:10px;font-weight:bold
 }
-.phone-screen {
-  height:100%;
-  display:flex;
-  flex-direction:column;
+.source-caption{
+ color:var(--muted);font-size:11px;
+ line-height:1.7
 }
-.status-bar {
-  height:40px;
-  flex-shrink:0;
-  display:flex;
-  justify-content:space-between;
-  padding:12px 22px 8px;
-  font-size:10px;
-  font-weight:bold;
+.phone{
+ width:340px;max-width:100%;height:670px;
+ background:white;border:9px solid #151e33;
+ border-radius:42px;margin:30px auto 20px;
+ overflow:hidden;position:relative;
+ box-shadow:0 22px 50px #111a3030
 }
-.screen-content {
-  flex:1;
-  min-height:0;
-  overflow-y:auto;
-  padding:10px 16px 16px;
-  text-align:left;
+.phone:before{
+ content:"";position:absolute;width:100px;height:23px;
+ background:#151e33;border-radius:0 0 16px 16px;
+ left:50%;top:0;transform:translateX(-50%);z-index:5
 }
-.app-logo {
-  text-align:center;
-  color:var(--pink);
-  font-size:12px;
-  font-weight:900;
-  letter-spacing:2px;
-  margin:10px 0 25px;
+.phone-screen{
+ height:100%;display:flex;flex-direction:column
 }
-.screen-title {
-  text-align:center;
-  font-size:19px;
-  font-weight:900;
-  margin:0 0 8px;
+.status-bar{
+ height:40px;flex-shrink:0;display:flex;
+ justify-content:space-between;
+ padding:12px 22px 8px;font-size:10px;font-weight:bold
 }
-.screen-desc {
-  text-align:center;
-  color:#929eb0;
-  font-size:10px;
-  line-height:1.7;
-  margin-bottom:20px;
+.screen-content{
+ flex:1;min-height:0;overflow-y:auto;
+ padding:10px 16px 16px;text-align:left
 }
-.tabs {
-  display:flex;
-  background:#f1f3f7;
-  border-radius:12px;
-  padding:4px;
-  margin-bottom:15px;
+.app-logo{
+ text-align:center;color:var(--pink);font-size:12px;
+ font-weight:900;letter-spacing:2px;margin:10px 0 25px
 }
-.tab {
-  flex:1;
-  padding:10px 5px;
-  background:transparent;
-  border-radius:9px;
-  color:#8896aa;
-  font-size:11px;
-  font-weight:bold;
+.screen-title{
+ text-align:center;font-size:19px;font-weight:900;
+ margin:0 0 8px;overflow-wrap:anywhere
 }
-.tab.active {color:white;background:var(--pink)}
-.fight-card {
-  display:block;
-  width:100%;
-  background:#f6f7fb;
-  border:1px solid #e9edf4;
-  padding:15px;
-  border-radius:13px;
-  margin-bottom:10px;
-  text-align:left;
-  color:var(--text);
+.screen-desc{
+ text-align:center;color:#929eb0;font-size:10px;
+ line-height:1.7;margin-bottom:20px
 }
-.fight-card:hover {
-  background:#fff3f7;
-  border-color:#f5b9ca;
+.tabs{
+ display:flex;background:#f1f3f7;
+ border-radius:12px;padding:4px;margin-bottom:15px
 }
-.card-header {
-  display:flex;
-  justify-content:space-between;
-  gap:8px;
-  margin-bottom:10px;
+.tab{
+ flex:1;padding:10px 5px;background:transparent;
+ border-radius:9px;color:#8896aa;
+ font-size:11px;font-weight:bold
 }
-.tag {
-  color:var(--pink);
-  font-size:10px;
-  font-weight:900;
+.tab.active{color:white;background:var(--pink)}
+.fight-card{
+ display:block;width:100%;background:#f6f7fb;
+ border:1px solid #e9edf4;padding:15px;
+ border-radius:13px;margin-bottom:10px;
+ text-align:left;color:var(--text)
 }
-.time {color:#8996ab;font-size:10px}
-.fight-name {
-  font-size:13px;
-  font-weight:900;
-  line-height:1.6;
+.fight-card:hover{
+ background:#fff3f7;border-color:#f5b9ca
 }
-.fight-info {
-  color:#95a2b5;
-  font-size:10px;
-  margin-top:8px;
-  line-height:1.7;
+.card-header{
+ display:flex;justify-content:space-between;
+ gap:8px;margin-bottom:10px
 }
-.primary {
-  display:block;
-  width:100%;
-  background:var(--pink);
-  color:white;
-  padding:13px;
-  border-radius:12px;
-  font-size:12px;
-  font-weight:900;
-  margin-top:12px;
+.tag{color:var(--pink);font-size:10px;font-weight:900}
+.time{color:#8996ab;font-size:10px}
+.fight-name{
+ font-size:13px;font-weight:900;line-height:1.6
 }
-.secondary {background:var(--soft);color:#cb2351}
-.section-label {
-  text-align:center;
-  font-size:11px;
-  font-weight:bold;
-  margin:22px 0 12px;
+.fight-info{
+ color:#95a2b5;font-size:10px;
+ margin-top:8px;line-height:1.7
 }
-.hint {
-  padding:13px;
-  color:#65738c;
-  font-size:10px;
-  line-height:1.8;
-  background:var(--soft);
-  border-radius:10px;
-  text-align:center;
-  margin:15px 0;
+.primary{
+ display:block;width:100%;background:var(--pink);
+ color:white;padding:13px;border-radius:12px;
+ font-size:12px;font-weight:900;margin-top:12px
 }
-.hero {
-  background:linear-gradient(135deg,#1d2b4c,#111a30);
-  border-radius:14px;
-  color:white;
-  text-align:center;
-  padding:23px 10px;
+.secondary{background:var(--soft);color:#cb2351}
+.section-label{
+ text-align:center;font-size:11px;
+ font-weight:bold;margin:22px 0 12px
 }
-.hero h3 {margin:15px 0;font-size:15px}
-.hero p {font-size:10px;color:#adb8ce}
-.select-card {
-  display:flex;
-  align-items:center;
-  gap:12px;
-  width:100%;
-  padding:13px 11px;
-  border-radius:12px;
-  background:#f6f7fb;
-  margin-bottom:9px;
-  text-align:left;
+.hint{
+ padding:13px;color:#65738c;font-size:10px;
+ line-height:1.8;background:var(--soft);
+ border-radius:10px;text-align:center;margin:15px 0
 }
-.select-card.selected {background:var(--soft)}
-.check-circle {
-  width:21px;
-  height:21px;
-  border-radius:50%;
-  border:2px solid #b6c2d4;
-  display:grid;
-  place-items:center;
-  flex-shrink:0;
-  color:white;
+.hero{
+ background:linear-gradient(135deg,#1d2b4c,#111a30);
+ border-radius:14px;color:white;text-align:center;
+ padding:23px 10px
 }
-.selected .check-circle {
-  background:var(--pink);
-  border-color:var(--pink);
+.hero h3{margin:15px 0;font-size:15px}
+.hero p{font-size:10px;color:#adb8ce}
+.timeline{
+ display:flex;justify-content:space-between;
+ gap:5px;margin:20px 0
 }
-.select-info {flex:1}
-.select-info strong {font-size:11px}
-.select-info p {font-size:10px;margin:5px 0}
-.alert-card {
-  background:#f6f7fb;
-  border-radius:12px;
-  padding:14px;
-  margin-bottom:10px;
+.step{flex:1;text-align:center}
+.step-dot{
+ width:21px;height:21px;margin:auto;
+ border-radius:50%;display:grid;place-items:center;
+ background:#b8c2d3;color:white;font-size:10px
 }
-.alert-top {
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
+.step.done .step-dot,
+.step.current .step-dot{background:var(--pink)}
+.step.current .step-dot{
+ box-shadow:0 0 0 5px #ffedf3
 }
-.alert-name {
-  font-size:12px;
-  font-weight:900;
-  margin:9px 0;
+.step-label{
+ font-size:9px;line-height:1.7;
+ color:#8190a5;margin-top:12px
 }
-.alert-status {
-  color:var(--pink);
-  font-size:10px;
-  font-weight:bold;
-  margin-top:9px;
+.select-card{
+ display:flex;align-items:center;gap:12px;
+ width:100%;padding:13px 11px;border-radius:12px;
+ background:#f6f7fb;margin-bottom:9px;text-align:left
 }
-.switch {
-  width:38px;
-  height:22px;
-  background:#b5bfd0;
-  border-radius:20px;
-  position:relative;
+.select-card.selected{background:var(--soft)}
+.check-circle{
+ width:21px;height:21px;border-radius:50%;
+ border:2px solid #b6c2d4;display:grid;
+ place-items:center;flex-shrink:0;color:white
 }
-.switch:after {
-  content:"";
-  width:16px;
-  height:16px;
-  background:white;
-  border-radius:50%;
-  position:absolute;
-  top:3px;
-  left:3px;
+.selected .check-circle{
+ background:var(--pink);border-color:var(--pink)
 }
-.switch.on {background:var(--pink)}
-.switch.on:after {left:19px}
-.bottom-nav {
-  height:60px;
-  flex-shrink:0;
-  display:flex;
-  justify-content:space-around;
-  border-top:1px solid #edf0f4;
-  padding:6px;
+.select-info{flex:1}
+.select-info strong{font-size:11px}
+.select-info p{font-size:10px;margin:5px 0}
+.alert-card{
+ background:#f6f7fb;border-radius:12px;
+ padding:14px;margin-bottom:10px
 }
-.bottom-nav button {
-  flex:1;
-  border-radius:10px;
-  background:white;
-  color:#9ba8bb;
-  font-size:11px;
+.alert-top{
+ display:flex;align-items:center;justify-content:space-between
 }
-.bottom-nav button.active {
-  background:var(--soft);
-  color:var(--pink);
-  font-weight:900;
+.alert-name{font-size:12px;font-weight:900;margin:9px 0}
+.alert-status{
+ color:var(--pink);font-size:10px;
+ font-weight:bold;margin-top:9px
 }
-.event-select {
-  width:100%;
-  padding:12px;
-  background:white;
-  border:1px solid #e5eaf2;
-  border-radius:10px;
-  font-size:11px;
-  margin-bottom:14px;
+.switch{
+ width:38px;height:22px;background:#b5bfd0;
+ border-radius:20px;position:relative
 }
-.panel {
-  background:white;
-  padding:35px 20px;
-  border-left:1px solid #e5eaf2;
+.switch:after{
+ content:"";width:16px;height:16px;
+ background:white;border-radius:50%;
+ position:absolute;top:3px;left:3px
 }
-.panel h2 {font-size:18px}
-.panel-card {
-  border:1px solid #e5eaf2;
-  padding:18px;
-  border-radius:15px;
-  margin:20px 0;
-  font-size:12px;
+.switch.on{background:var(--pink)}
+.switch.on:after{left:19px}
+.bottom-nav{
+ height:60px;flex-shrink:0;display:flex;
+ justify-content:space-around;
+ border-top:1px solid #edf0f4;padding:6px
 }
-.panel-card p {color:var(--muted);line-height:1.8}
-.panel-button {
-  width:100%;
-  padding:12px;
-  border-radius:10px;
-  color:white;
-  background:var(--pink);
-  font-size:12px;
-  font-weight:bold;
-  margin:8px 0;
+.bottom-nav button{
+ flex:1;border-radius:10px;background:white;
+ color:#9ba8bb;font-size:11px
 }
-.panel-note {
-  background:#f3f5f9;
-  border-radius:10px;
-  padding:14px;
-  color:#69788f;
-  line-height:1.8;
-  font-size:11px;
+.bottom-nav button.active{
+ background:var(--soft);color:var(--pink);font-weight:900
 }
-@media(max-width:1100px) {
-  .layout {grid-template-columns:190px 1fr}
-  .panel {grid-column:2}
+.event-switcher{margin:10px 0}
+.event-switcher select{
+ width:100%;padding:11px;border:1px solid #e5eaf2;
+ border-radius:10px;background:white;font-size:11px
 }
-@media(max-width:700px) {
-  .layout {display:block}
-  .sidebar {display:none}
-  .workspace {padding:25px 12px}
-  .panel {border-top:1px solid #e5eaf2}
-  h1 {font-size:25px}
+.event-metadata{
+ font-size:10px;color:#7888a1;
+ text-align:center;line-height:1.8;margin:12px 0
+}
+.preview{
+ display:block;width:100%;
+ background:#f8e9ef;color:#334155;
+ border-radius:12px;padding:16px;
+ text-align:center;font-size:11px;line-height:2
+}
+.data-note{
+ text-align:center;color:#8793a6;
+ font-size:10px;margin-bottom:12px
+}
+.lock{
+ flex:1;padding:25px 16px;color:white;
+ background:
+ radial-gradient(circle at 85% 100%,#ed275d,transparent 60%),
+ linear-gradient(150deg,#152753,#1d1b3b 70%)
+}
+.lock-date{text-align:center;margin-top:42px;font-size:11px}
+.lock-time{
+ font-size:65px;text-align:center;
+ margin:10px 0 40px;font-weight:300
+}
+.notification{
+ border:1px solid #ffffff88;border-radius:15px;
+ background:#ffffff33;color:white;padding:15px;
+ margin-bottom:14px;width:100%;text-align:left
+}
+.notification strong{
+ display:block;font-size:12px;margin-bottom:10px
+}
+.notification p{
+ font-size:11px;margin:5px 0;line-height:1.7
+}
+.panel{
+ background:white;padding:35px 20px;
+ border-left:1px solid #e5eaf2
+}
+.panel h2{font-size:18px}
+.panel-card{
+ border:1px solid #e5eaf2;padding:18px;
+ border-radius:15px;margin:20px 0;font-size:12px
+}
+.panel-card p{
+ color:var(--muted);line-height:1.8
+}
+.panel-button{
+ width:100%;padding:12px;border-radius:10px;
+ background:var(--pink);color:white;
+ font-size:12px;font-weight:bold;margin:8px 0
+}
+.panel-button.reset{
+ background:#eef1f6;color:#67758c
+}
+.panel-note{
+ background:#f3f5f9;border-radius:10px;
+ padding:14px;color:#69788f;
+ line-height:1.8;font-size:11px
+}
+.panel-step{padding:10px 0;font-size:11px}
+.panel-step b{color:var(--pink)}
+.status-line{font-size:11px;color:#64748b}
+#changeList{font-size:11px;line-height:1.7;color:#607084}
+#toast{
+ position:fixed;bottom:25px;left:50%;
+ transform:translate(-50%,20px);
+ opacity:0;pointer-events:none;
+ background:#12203b;color:white;
+ padding:14px 20px;border-radius:13px;
+ font-size:12px;transition:.2s;z-index:50
+}
+#toast.show{
+ opacity:1;transform:translate(-50%,0)
+}
+[hidden]{display:none!important}
+@media(max-width:1100px){
+ .layout{grid-template-columns:190px 1fr}
+ .panel{grid-column:2}
+}
+@media(max-width:700px){
+ .layout{display:block}
+ .sidebar{display:none}
+ .workspace{padding:25px 12px}
+ .panel{border-top:1px solid #e5eaf2}
+ h1{font-size:25px}
 }
 </style>
 </head>
-
 <body>
 <div class="layout">
 
 <aside class="sidebar">
-  <div class="brand">UFC <span>ALERT</span></div>
-  <div class="brand-desc">LIVE FIGHT NOTIFICATION</div>
-  <div class="side-label">MENU</div>
-  <nav id="sidebarNav"></nav>
-
-  <div class="sidebar-footer">
-    원하는 경기만, 놓치지 않게<br>
-    UFC 경기 일정 자동 갱신<br>
-    경기별 맞춤 알림
-  </div>
+ <div class="brand">UFC <span>ALERT</span></div>
+ <div class="brand-desc">LIVE FIGHT NOTIFICATION</div>
+ <div class="side-label">SERVICE MENU</div>
+ <nav id="sidebarNav"></nav>
+ <div class="sidebar-footer">
+  원하는 경기만, 놓치지 않게<br>
+  UFC 경기 진행 기반 맞춤 알림<br>
+  최신 일정 · 관심 경기 관리
+ </div>
 </aside>
 
 <main class="workspace">
-  <div class="eyebrow">UFC ALERT</div>
-
-  <h1>
-    경기 시작은 달라도,<br>
-    알림은 정확한 순간에.
-  </h1>
-
-  <p class="description">
-    UFC 경기 일정 자동 갱신 및 맞춤 알림 서비스<br>
-    관심 있는 경기를 선택하고 알림을 설정하세요.
-  </p>
-
-  <div class="phone">
-    <div class="phone-screen" id="phoneScreen"></div>
-  </div>
-
-  <p class="description" id="sourceNotice">
-    UFC 경기 정보를 불러오고 있습니다.
-  </p>
+ <div class="eyebrow">UFC ALERT</div>
+ <h1>경기 시작은 달라도,<br>알림은 정확한 순간에.</h1>
+ <p class="description">
+  새로운 UFC 대회와 공개 대진표는 자동으로 갱신합니다.<br>
+  원하는 경기의 알림을 등록하고 관리하세요.
+ </p>
+ <div class="control-bar">
+  <button id="modeLive" class="active"
+   onclick="chooseMode('live')">최신 UFC 일정</button>
+  <button id="modeDemo"
+   onclick="chooseMode('demo')">UFC 333</button>
+  <span id="sourceBadge" class="source-chip">자동 갱신</span>
+ </div>
+ <p id="currentSource" class="source-caption"></p>
+ <div class="phone">
+  <div class="phone-screen" id="phoneScreen"></div>
+ </div>
+ <p class="description">
+  ※ 실제 경기 종료 감지 및 휴대전화 푸시 알림은
+  아직 연결되지 않았습니다.
+ </p>
 </main>
 
 <aside class="panel">
-  <h2>🥊 UFC 경기 정보</h2>
+ <h2>UFC 일정 자동 갱신</h2>
+ <p class="description">
+  GitHub Actions가 경기 일정을 확인하고
+  갱신된 파일을 웹사이트에서 읽습니다.
+ </p>
 
-  <p class="description">
-    최신 UFC 대회 일정과 공개된 대진표를 확인합니다.
-  </p>
+ <div class="panel-card">
+  <h3>경기 데이터 연결 상태</h3>
+  <p class="status-line" id="liveStatus">최신 일정 확인 중</p>
+  <p class="status-line" id="lastUpdated">최초 수집 전</p>
+  <button class="panel-button"
+   onclick="refreshLiveData(true)">지금 최신 일정 확인</button>
+ </div>
 
-  <div class="panel-card">
-    <h3>경기 일정 업데이트</h3>
-    <p id="updateStatus">최신 정보 확인 중</p>
+ <div class="panel-card">
+  <h3>최근 변경 내용</h3>
+  <div id="changeList"></div>
+ </div>
 
-    <button class="panel-button" onclick="loadSchedule()">
-      최신 일정 확인
-    </button>
-  </div>
+ <div class="panel-card" id="demoControls">
+  <h3>경기 상태 및 알림</h3>
+  <p id="demoStatus"></p>
+  <div class="panel-step"><b>01</b> 관심 경기 선택</div>
+  <div class="panel-step"><b>02</b> 코메인 경기 종료 확인</div>
+  <div class="panel-step"><b>03</b> 메인 이벤트 알림 확인</div>
+  <button class="panel-button" id="demoEnd"
+   onclick="endCoMain()">코메인 경기 종료 처리</button>
+  <button class="panel-button reset"
+   onclick="resetDemo()">경기 상태 초기화</button>
+ </div>
 
-  <div class="panel-card">
-    <h3>서비스 기능</h3>
-    <p>01. UFC 대회 일정 확인</p>
-    <p>02. 원하는 경기 선택</p>
-    <p>03. 경기별 알림 설정</p>
-    <p>04. 등록된 알림 관리</p>
-  </div>
-
-  <div class="panel-note">
-    UFC 경기 일정과 공개된 대진표는
-    외부 경기 데이터를 기준으로 갱신됩니다.<br><br>
-    개별 경기 시작 시각은 앞선 경기의 진행 상황에
-    따라 변경될 수 있습니다.
-  </div>
+ <div class="panel-note">
+  경기 일정과 대진표는 외부 데이터 기준으로 갱신됩니다.
+  경기별 알림 설정은 브라우저에 저장됩니다.
+  실제 푸시 알림은 추가 서버 연동이 필요합니다.
+ </div>
 </aside>
-
 </div>
 
-<script>
-const DATA_URL = "./data/ufc_schedule.json";
+<div id="toast" role="status"></div>
 
-const menu = [
-  ["list","경기 목록"],
-  ["detail","경기 상세"],
-  ["select","경기 선택"],
-  ["alerts","내 알림"]
+<script>
+"use strict";
+
+const demoEvent = {
+ id:"demo-ufc-333",
+ name:"UFC 333: Volkanovski vs. Evloev",
+ date:"2026-10-24T14:00:00Z",
+ venue:"UFC 333",
+ fights:[
+  {
+   id:"demo-early",
+   category:"초기 예선",
+   name:"식니스 vs 초푸로프",
+   division:"초기 예선",
+   rounds:"3R",
+   status:"post",
+   session:"23:00"
+  },
+  {
+   id:"demo-prelim",
+   category:"예선 카드",
+   name:"무르자카노프 vs 레예스",
+   division:"라이트헤비급",
+   rounds:"3R",
+   status:"post",
+   session:"01:00"
+  },
+  {
+   id:"demo-card",
+   category:"메인 카드",
+   name:"애런 피코 vs 케이타",
+   division:"메인 카드",
+   rounds:"3R",
+   status:"post",
+   session:"03:00"
+  },
+  {
+   id:"demo-co",
+   category:"코메인 이벤트",
+   name:"얀 vs 드발리쉬빌리",
+   division:"밴텀급 타이틀",
+   rounds:"5R",
+   status:"in",
+   session:"03:00 이후"
+  },
+  {
+   id:"demo-main",
+   category:"메인 이벤트",
+   name:"볼카노프스키 vs 에블로예프",
+   division:"페더급 타이틀",
+   rounds:"5R",
+   status:"pre",
+   session:"03:00 이후"
+  }
+ ]
+};
+
+const menu=[
+ ["list","경기 목록"],
+ ["detail","경기 상세"],
+ ["select","경기 선택"],
+ ["alerts","내 알림"],
+ ["receive","알림 수신"]
 ];
 
-let events = [];
-let eventIndex = 0;
-let page = "list";
-let detailIndex = 0;
-let listTab = "main";
-let selected = new Set();
-let enabled = {};
-let updateTime = null;
+const DATA_URL="./data/ufc_schedule.json";
+const REFRESH_MS=5*60*1000;
 
-try {
-  const saved = JSON.parse(
-    localStorage.getItem("ufcAlerts") || "{}"
+let liveEvents=[];
+let mode="live";
+let selectedEventId=null;
+let detailId=null;
+let page="list";
+let listTab="main";
+let selectedIds=new Set();
+let coEnded=false;
+let notification=null;
+let dataStatus="최신 일정 확인 중";
+let dataUpdatedAt=null;
+let latestChanges=[];
+let activeFetch=false;
+let previousFingerprint="";
+
+let enabled={
+ "demo-co":true,
+ "demo-main":true
+};
+
+try{
+ const saved=JSON.parse(
+  localStorage.getItem("ufc-alert-preferences-v3")||"{}"
+ );
+ if(saved.enabled){
+  enabled={...enabled,...saved.enabled};
+ }
+}catch(error){}
+
+function persist(){
+ try{
+  localStorage.setItem(
+   "ufc-alert-preferences-v3",
+   JSON.stringify({enabled})
   );
-  if (
-    saved &&
-    typeof saved === "object" &&
-    !Array.isArray(saved)
-  ) {
-    enabled = saved;
+ }catch(error){}
+}
+
+function esc(value){
+ return String(value??"").replace(
+  /[&<>"']/g,
+  c=>({
+   "&":"&amp;",
+   "<":"&lt;",
+   ">":"&gt;",
+   '"':"&quot;",
+   "'":"&#39;"
+  }[c])
+ );
+}
+
+function formatKst(value){
+ const date=new Date(value||"");
+ if(Number.isNaN(date.getTime()))return "시간 확인 중";
+ return new Intl.DateTimeFormat("ko-KR",{
+  timeZone:"Asia/Seoul",
+  year:"numeric",
+  month:"2-digit",
+  day:"2-digit",
+  weekday:"short",
+  hour:"2-digit",
+  minute:"2-digit",
+  hour12:false
+ }).format(date);
+}
+
+function eventList(){
+ return mode==="live"?liveEvents:[demoEvent];
+}
+
+function currentEvent(){
+ const all=eventList();
+ return all.find(e=>e.id===selectedEventId)||all[0]||null;
+}
+
+function allFights(){
+ return eventList().flatMap(e=>
+  e.fights.map(f=>({
+   ...f,
+   eventId:e.id,
+   eventName:e.name
+  }))
+ );
+}
+
+function findFight(id){
+ return allFights().find(f=>f.id===id)||null;
+}
+
+function activeFight(){
+ const event=currentEvent();
+ if(!event)return null;
+ const fights=allFights().filter(f=>f.eventId===event.id);
+ return findFight(detailId)||
+  fights.find(f=>f.category==="메인 이벤트")||
+  fights[0]||null;
+}
+
+function isEnabled(id){
+ return enabled[id]===true;
+}
+
+function toast(message){
+ const el=document.getElementById("toast");
+ el.textContent=message;
+ el.classList.add("show");
+ clearTimeout(toast.timer);
+ toast.timer=setTimeout(()=>el.classList.remove("show"),3500);
+}
+
+function uiStatus(){
+ if(mode==="demo")return "UFC 333 경기 정보";
+ return dataUpdatedAt
+  ? "최신 데이터 · "+formatKst(dataUpdatedAt)
+  : dataStatus;
+}
+
+async function refreshLiveData(manual=false){
+ if(activeFetch)return;
+ activeFetch=true;
+
+ try{
+  const res=await fetch(
+   DATA_URL+"?t="+Date.now(),
+   {cache:"no-store"}
+  );
+
+  if(!res.ok)throw Error("일정 파일 요청 실패");
+
+  const json=await res.json();
+
+  if(!Array.isArray(json.events)||!json.events.length){
+   throw Error("일정 정보 없음");
   }
-} catch {
-  enabled = {};
-}
 
-function save() {
-  try {
-    localStorage.setItem(
-      "ufcAlerts",
-      JSON.stringify(enabled)
-    );
-  } catch(error) {
-    console.warn(error);
-  }
-}
+  const next=json.events.filter(e=>
+   e&&e.id&&e.name&&Array.isArray(e.fights)
+  );
 
-function esc(value) {
-  return String(value ?? "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#39;");
-}
+  if(!next.length)throw Error("대회 데이터 없음");
 
-function currentEvent() {
-  return events[eventIndex] || null;
-}
+  const fingerprint=JSON.stringify(next);
+  const changed=previousFingerprint&&
+   previousFingerprint!==fingerprint;
 
-function currentFights() {
-  return currentEvent()?.fights || [];
-}
+  previousFingerprint=fingerprint;
+  liveEvents=next;
+  dataUpdatedAt=json.updated_at||null;
+  latestChanges=Array.isArray(json.changes)
+   ?json.changes.slice(0,4):[];
+  dataStatus="자동 갱신 데이터 연결됨";
 
-function currentFight() {
-  return currentFights()[detailIndex] || null;
-}
-
-function fightKey(f) {
-  return currentEvent().id + ":" + f.id;
-}
-
-function isEnabled(f) {
-  return enabled[fightKey(f)] === true;
-}
-
-function formatDate(value) {
-  if (!value) return "일정 미정";
-
-  const date = new Date(value);
-
-  if (Number.isNaN(date.getTime())) {
-    return "일정 미정";
+  if(mode==="live"&&!liveEvents.some(
+   e=>e.id===selectedEventId
+  )){
+   selectedEventId=liveEvents[0].id;
   }
 
-  return new Intl.DateTimeFormat("ko-KR",{
-    timeZone:"Asia/Seoul",
-    year:"numeric",
-    month:"long",
-    day:"numeric",
-    weekday:"short",
-    hour:"2-digit",
-    minute:"2-digit",
-    hour12:false
-  }).format(date);
-}
+  if(changed){
+   toast("🥊 UFC 일정 또는 대진표가 업데이트되었습니다.");
+  }else if(manual){
+   toast("최신 UFC 일정을 확인했습니다.");
+  }
 
-function navigate(target) {
-  page = target;
+ }catch(error){
+  dataStatus=liveEvents.length
+   ?"마지막 수집 자료 표시 중"
+   :"자동 갱신 데이터 없음";
+
+  if(!liveEvents.length){
+   mode="demo";
+   selectedEventId=demoEvent.id;
+  }
+
+  if(manual)toast("최신 정보를 불러오지 못했습니다.");
+ }finally{
+  activeFetch=false;
   render();
+ }
 }
 
-function changeEvent(index) {
-  if (!events[index]) return;
+function chooseMode(next){
+ if(next==="live"&&!liveEvents.length){
+  toast("최신 데이터가 아직 없습니다.");
+  return;
+ }
 
-  eventIndex = index;
-  detailIndex = 0;
-  selected.clear();
-  page = "list";
-  render();
+ mode=next;
+ selectedEventId=eventList()[0]?.id||null;
+ selectedIds.clear();
+ detailId=null;
+ coEnded=false;
+ notification=null;
+ page="list";
+ render();
 }
 
-function openDetail(index) {
-  if (!currentFights()[index]) return;
-
-  detailIndex = index;
-  page = "detail";
-  render();
+function selectEvent(id){
+ if(!eventList().some(e=>e.id===id))return;
+ selectedEventId=id;
+ detailId=null;
+ selectedIds.clear();
+ listTab="main";
+ render();
 }
 
-function nextFight() {
-  if (detailIndex < currentFights().length - 1) {
-    detailIndex++;
-    render();
-    return;
-  }
-
-  for (let i = eventIndex + 1; i < events.length; i++) {
-    if (events[i].fights.length > 0) {
-      eventIndex = i;
-      detailIndex = 0;
-      selected.clear();
-      render();
-      return;
-    }
-  }
-
-  alert("마지막 경기입니다.");
+function navigate(target){
+ page=target;
+ render();
 }
 
-function previousFight() {
-  if (detailIndex > 0) {
-    detailIndex--;
-    render();
-    return;
-  }
-
-  for (let i = eventIndex - 1; i >= 0; i--) {
-    if (events[i].fights.length > 0) {
-      eventIndex = i;
-      detailIndex = events[i].fights.length - 1;
-      selected.clear();
-      render();
-      return;
-    }
-  }
-
-  alert("첫 번째 경기입니다.");
+function openDetail(id){
+ const f=findFight(id);
+ if(!f)return;
+ selectedEventId=f.eventId;
+ detailId=id;
+ page="detail";
+ render();
 }
 
-function screen(title,desc,body) {
-  return `
-    <div class="status-bar">
-      <span>9:41</span>
-      <span>●●● ▰</span>
-    </div>
+function nextFight(){
+ const event=currentEvent();
+ if(!event)return;
 
-    <div class="screen-content">
-      <div class="app-logo">UFC ALERT</div>
-      <h2 class="screen-title">${esc(title)}</h2>
-      <div class="screen-desc">${esc(desc)}</div>
-      ${body}
-    </div>
+ const fights=event.fights||[];
+ const index=fights.findIndex(f=>f.id===detailId);
 
-    <div class="bottom-nav">
-      <button
-        class="${page === "list" || page === "detail" ? "active" : ""}"
-        onclick="navigate('list')">
-        ● 경기
-      </button>
-      <button
-        class="${page === "alerts" ? "active" : ""}"
-        onclick="navigate('alerts')">
-        ◉ 내 알림
-      </button>
-      <button
-        class="${page === "select" ? "active" : ""}"
-        onclick="navigate('select')">
-        ⚙ 설정
-      </button>
-    </div>
-  `;
+ if(index>=0&&index<fights.length-1){
+  openDetail(fights[index+1].id);
+  return;
+ }
+
+ const all=eventList();
+ const pos=all.findIndex(e=>e.id===event.id);
+ const upcoming=all.slice(pos+1).find(e=>e.fights.length);
+
+ if(upcoming){
+  selectedEventId=upcoming.id;
+  openDetail(upcoming.fights[0].id);
+ }else{
+  toast("마지막 경기입니다.");
+ }
 }
 
-function emptyMessage(message) {
-  return `<div class="hint">${esc(message)}</div>`;
+function toggleSelected(id){
+ if(selectedIds.has(id))selectedIds.delete(id);
+ else selectedIds.add(id);
+ render();
 }
 
-function fightCard(f,index) {
-  return `
-    <button class="fight-card" onclick="openDetail(${index})">
-      <div class="card-header">
-        <span class="tag">${esc(f.category || "경기")}</span>
-        <span class="time">${esc(f.rounds || "라운드 미정")}</span>
-      </div>
-      <div class="fight-name">${esc(f.name)}</div>
-      <div class="fight-info">
-        ${esc(f.division || "체급 미정")} · 상세 보기
-      </div>
-    </button>
-  `;
+function registerSelected(){
+ selectedIds.forEach(id=>enabled[id]=true);
+ persist();
+ page="alerts";
+ render();
+ toast(selectedIds.size+"경기의 알림 설정을 저장했습니다.");
 }
 
-function noEventScreen() {
-  return screen(
-    "UFC 경기 일정",
-    "최신 경기 정보 확인",
-    `
-      ${emptyMessage("등록된 UFC 경기 정보가 없습니다.")}
-      <button class="primary" onclick="loadSchedule()">
-        최신 경기 정보 불러오기
-      </button>
-    `
-  );
+function toggleAlert(id){
+ enabled[id]=!isEnabled(id);
+ persist();
+ render();
 }
 
-function listScreen() {
-  const event = currentEvent();
+function endCoMain(){
+ if(mode!=="demo")return;
+ if(coEnded)return;
 
-  if (!event) return noEventScreen();
+ coEnded=true;
 
-  const indexed = currentFights().map(
-    (f,index) => ({f,index})
-  );
-
-  const main = indexed.filter(({f}) =>
-    f.category === "메인 이벤트" ||
-    f.category === "코메인 이벤트"
-  );
-
-  const shown = listTab === "main"
-    ? (main.length ? main : indexed)
-    : indexed;
-
-  let body = `
-    <div class="hint">
-      ${esc(formatDate(event.date))}<br>
-      ${esc(event.venue || "장소 미정")}
-    </div>
-
-    <div class="tabs">
-      <button class="tab ${listTab === "main" ? "active" : ""}"
-        onclick="listTab='main';render()">
-        메인 경기
-      </button>
-
-      <button class="tab ${listTab === "all" ? "active" : ""}"
-        onclick="listTab='all';render()">
-        전체 대진
-      </button>
-    </div>
-  `;
-
-  body += shown.length
-    ? shown.map(({f,index}) => fightCard(f,index)).join("")
-    : emptyMessage("공개된 대진표가 없습니다.");
-
-  body += `
-    <button class="primary secondary"
-      onclick="navigate('select')">
-      알림 받을 경기 선택하기
-    </button>
-  `;
-
-  if (events.length > 1) {
-    body += `
-      <div class="section-label">다른 대회 확인</div>
-      <select class="event-select"
-        onchange="changeEvent(Number(this.value))">
-        ${events.map((e,i) => `
-          <option value="${i}" ${i === eventIndex ? "selected" : ""}>
-            ${esc(e.name)}
-          </option>
-        `).join("")}
-      </select>
-    `;
-  }
-
-  if (events[eventIndex + 1]) {
-    const next = events[eventIndex + 1];
-
-    body += `
-      <div class="section-label">다음 대회</div>
-      <button class="fight-card"
-        onclick="changeEvent(${eventIndex + 1})">
-        <div class="fight-name">${esc(next.name)}</div>
-        <div class="fight-info">${esc(formatDate(next.date))}</div>
-      </button>
-    `;
-  }
-
-  body += `
-    <div class="hint">
-      개별 경기 시작 시각은 진행 상황에 따라 변동될 수 있습니다.
-    </div>
-  `;
-
-  return screen(
-    event.name,
-    "UFC 경기 일정 및 주요 대진",
-    body
-  );
-}
-
-function detailScreen() {
-  const f = currentFight();
-
-  if (!f) {
-    return screen(
-      "경기 상세",
-      "경기를 선택해주세요",
-      `<button class="primary" onclick="navigate('list')">
-        경기 목록으로 이동
-      </button>`
-    );
-  }
-
-  const statusNames = {
-    pre:"예정",
-    in:"진행 중",
-    post:"종료"
+ if(isEnabled("demo-main")){
+  notification={
+   fightId:"demo-main",
+   at:new Date().toISOString()
   };
+  page="receive";
+  toast("메인 이벤트 시작 임박 알림");
+ }else{
+  toast("메인 이벤트 알림이 꺼져 있습니다.");
+ }
+ render();
+}
 
+function resetDemo(){
+ coEnded=false;
+ notification=null;
+ enabled["demo-co"]=true;
+ enabled["demo-main"]=true;
+ selectedIds.clear();
+ selectedIds.add("demo-co");
+ selectedIds.add("demo-main");
+ persist();
+ page="list";
+ render();
+}
+
+function screen(title,subtitle,content){
+ return `
+ <div class="status-bar">
+  <span>9:41</span><span>●●● ▰</span>
+ </div>
+ <div class="screen-content">
+  <div class="app-logo">UFC ALERT</div>
+  <h2 class="screen-title">${esc(title)}</h2>
+  <div class="screen-desc">${esc(subtitle)}</div>
+  ${content}
+ </div>
+ <div class="bottom-nav">
+  <button class="${["list","detail","select"].includes(page)?"active":""}"
+   onclick="navigate('list')">● 경기</button>
+  <button class="${page==="alerts"?"active":""}"
+   onclick="navigate('alerts')">◉ 내 알림</button>
+  <button class="${page==="receive"?"active":""}"
+   onclick="navigate('receive')">▣ 수신</button>
+ </div>`;
+}
+
+function fightCard(f){
+ const status=mode==="demo"
+  ?coEnded&&f.id==="demo-main"?"시작 임박":"대기"
+  :({pre:"예정",in:"진행 중",post:"종료"}[f.status]||"예정");
+
+ return `
+ <button class="fight-card" data-action="detail"
+  data-id="${esc(f.id)}">
+  <div class="card-header">
+   <span class="tag">${esc(f.category||"공개 대진")}</span>
+   <span class="time">${esc(f.session||status)}</span>
+  </div>
+  <div class="fight-name">${esc(f.name)}</div>
+  <div class="fight-info">
+   ${esc(f.division||"체급 미정")} ·
+   ${esc(f.rounds||"라운드 미정")} · 상세 보기
+  </div>
+ </button>`;
+}
+
+function emptyState(message){
+ return `<div class="hint">${esc(message)}</div>`;
+}
+
+function listScreen(){
+ const event=currentEvent();
+ if(!event){
   return screen(
-    "경기 상세 및 알림 설정",
-    currentEvent().name,
-    `
-      <div class="hero">
-        <span class="tag">
-          ${esc(f.category || "경기")}
-          · ${esc(f.rounds || "라운드 미정")}
-        </span>
-        <h3>${esc(f.name)}</h3>
-        <p>${esc(f.division || "체급 미정")}</p>
-      </div>
-
-      <div class="section-label">경기 정보</div>
-
-      <div class="hint">
-        대회: ${esc(currentEvent().name)}<br>
-        일정: ${esc(formatDate(currentEvent().date))}<br>
-        장소: ${esc(currentEvent().venue || "장소 미정")}<br>
-        진행 상태: ${esc(statusNames[f.status] || "정보 없음")}
-      </div>
-
-      <button class="primary"
-        onclick="toggleAlert(${detailIndex})">
-        ${isEnabled(f) ? "알림 끄기" : "이 경기 알림 켜기"}
-      </button>
-
-      <button class="primary secondary"
-        onclick="previousFight()">
-        ← 이전 경기
-      </button>
-
-      <button class="primary secondary"
-        onclick="nextFight()">
-        다음 경기 이동 →
-      </button>
-    `
+   "UFC 최신 일정",
+   "경기 정보 확인",
+   emptyState("경기 정보를 확인 중입니다.")
   );
+ }
+
+ const all=eventList();
+
+ let content=`
+ <div class="data-note">
+  ${mode==="demo"?"UFC 333":"자동 갱신"}
+ </div>
+ <div class="event-switcher">
+  <select id="eventSelect">
+   ${all.map(e=>`
+    <option value="${esc(e.id)}"
+     ${e.id===event.id?"selected":""}>
+     ${esc(e.name)}
+    </option>
+   `).join("")}
+  </select>
+ </div>
+ <div class="event-metadata">
+  ${esc(formatKst(event.date))} (KST)<br>
+  ${esc(event.venue||"장소 미정")}
+ </div>
+ <div class="tabs">
+  <button class="tab ${listTab==="main"?"active":""}"
+   onclick="listTab='main';render()">메인 경기</button>
+  <button class="tab ${listTab==="all"?"active":""}"
+   onclick="listTab='all';render()">전체 대진</button>
+ </div>`;
+
+ const fights=event.fights||[];
+ const primary=fights.filter(f=>
+  ["메인 이벤트","코메인 이벤트"].includes(f.category)
+ );
+
+ const shown=listTab==="main"
+  ?primary.length?primary:fights.slice(-2)
+  :fights;
+
+ content+=shown.length
+  ?shown.map(fightCard).join("")
+  :emptyState("공개된 대진 정보가 없습니다.");
+
+ const pos=all.findIndex(e=>e.id===event.id);
+ const next=all[pos+1];
+
+ if(next){
+  content+=`
+   <div class="section-label">다음 대회</div>
+   <button class="preview" data-action="event"
+    data-id="${esc(next.id)}">
+    ${esc(next.name)}<br>${esc(formatKst(next.date))}
+   </button>`;
+ }
+
+ content+=`
+ <button class="primary secondary" data-action="first">
+  첫 경기부터 확인하기 →
+ </button>
+ <button class="primary secondary"
+  onclick="navigate('select')">
+  알림 받을 경기 선택하기
+ </button>
+ <div class="hint">
+  개별 경기 시작 시각은 앞선 경기 진행 상황에 따라 변동됩니다.
+ </div>`;
+
+ return screen(event.name,"대회 일정 · 경기별 대진",content);
 }
 
-function toggleSelected(index) {
-  const f = currentFights()[index];
-  if (!f) return;
+function detailScreen(){
+ const f=activeFight();
 
-  const key = fightKey(f);
-
-  if (selected.has(key)) {
-    selected.delete(key);
-  } else {
-    selected.add(key);
-  }
-
-  render();
-}
-
-function selectScreen() {
-  if (!currentEvent()) return noEventScreen();
-
-  let body = currentFights().map((f,index) => {
-    const checked = selected.has(fightKey(f));
-
-    return `
-      <button class="select-card ${checked ? "selected" : ""}"
-        onclick="toggleSelected(${index})">
-        <span class="check-circle">
-          ${checked ? "✓" : ""}
-        </span>
-        <span class="select-info">
-          <strong>
-            ${esc(f.category || "경기")}
-            · ${esc(f.rounds || "")}
-          </strong>
-          <p>${esc(f.name)}</p>
-        </span>
-      </button>
-    `;
-  }).join("");
-
-  if (!body) {
-    body = emptyMessage("선택 가능한 경기가 없습니다.");
-  }
-
-  body += `
-    <button class="primary"
-      onclick="registerSelected()"
-      ${selected.size === 0 ? "disabled" : ""}>
-      선택한 ${selected.size}경기 알림 켜기
-    </button>
-  `;
-
+ if(!f){
   return screen(
-    "경기별 알림 선택",
-    currentEvent().name,
-    body
+   "경기 상세",
+   "경기 정보",
+   emptyState("대진을 선택해주세요.")
   );
-}
+ }
 
-function registerSelected() {
-  for (const key of selected) {
-    enabled[key] = true;
-  }
-
-  save();
-  selected.clear();
-  navigate("alerts");
-}
-
-function toggleAlert(index) {
-  const f = currentFights()[index];
-  if (!f) return;
-
-  enabled[fightKey(f)] = !isEnabled(f);
-  save();
-  render();
-}
-
-function alertsScreen() {
-  if (!currentEvent()) return noEventScreen();
-
-  const fights = currentFights();
-  const count = fights.filter(f => isEnabled(f)).length;
-
-  let body = fights.map((f,index) => `
-    <div class="alert-card">
-      <div class="alert-top">
-        <span class="tag">${esc(f.category || "경기")}</span>
-        <button
-          class="switch ${isEnabled(f) ? "on" : ""}"
-          aria-label="${esc(f.name)} 알림 설정"
-          aria-pressed="${isEnabled(f)}"
-          onclick="toggleAlert(${index})">
-        </button>
-      </div>
-
-      <div class="alert-name">${esc(f.name)}</div>
-
-      <div class="fight-info">
-        ${esc(f.division || "체급 미정")}
-        · ${esc(f.rounds || "")}
-      </div>
-
-      <div class="alert-status">
-        ${isEnabled(f) ? "알림 설정 켜짐" : "알림 설정 꺼짐"}
-      </div>
+ const timeline=mode==="demo"
+  ?`
+  <div class="section-label">경기 진행 단계</div>
+  <div class="timeline">
+   ${[
+    ["초기 예선","종료","done"],
+    ["예선","종료","done"],
+    ["코메인",coEnded?"종료":"진행 중",coEnded?"done":"current"],
+    ["메인",coEnded?"시작 임박":"대기",coEnded?"current":""]
+   ].map(([name,status,cls])=>`
+    <div class="step ${cls}">
+     <div class="step-dot">${cls==="done"?"✓":"●"}</div>
+     <div class="step-label">${name}<br>${status}</div>
     </div>
+   `).join("")}
+  </div>`
+  :`
+  <div class="hint">
+   경기 상태:
+   ${esc(({pre:"예정",in:"진행 중",post:"종료"}[f.status]||"확인 중"))}
+  </div>`;
+
+ return screen(
+  "경기 상세 및 알림 설정",
+  f.eventName,
+  `
+  <div class="hero">
+   <span class="tag">${esc(f.category)} · ${esc(f.rounds)}</span>
+   <h3>${esc(f.name)}</h3>
+   <p>${esc(f.division||"체급 미정")} · ${esc(f.session||"시간 미정")}</p>
+  </div>
+  ${timeline}
+  <div class="hint">
+   관심 경기를 등록하고 직전 경기 종료 시
+   시작 임박 알림을 제공합니다.
+  </div>
+  <button class="primary" data-action="toggle"
+   data-id="${esc(f.id)}">
+   ${isEnabled(f.id)?"✓ 알림 끄기":"이 경기 알림 켜기"}
+  </button>
+  <button class="primary secondary"
+   onclick="nextFight()">
+   다음 경기 이동 →
+  </button>
+  `);
+}
+
+function selectScreen(){
+ const event=currentEvent();
+
+ if(!event)return screen(
+  "경기 선택","",emptyState("경기 정보가 없습니다.")
+ );
+
+ let content=event.fights.map(f=>`
+  <button class="select-card ${selectedIds.has(f.id)?"selected":""}"
+   data-action="selected" data-id="${esc(f.id)}">
+   <div class="check-circle">
+    ${selectedIds.has(f.id)?"✓":""}
+   </div>
+   <div class="select-info">
+    <strong>${esc(f.category)} · ${esc(f.rounds)}</strong>
+    <p>${esc(f.name)}</p>
+   </div>
+   <div class="time">${esc(f.session||"시간 변동")}</div>
+  </button>
+ `).join("");
+
+ content+=`
+ <button class="primary" data-action="register"
+  ${selectedIds.size?"":"disabled"}>
+  선택한 ${selectedIds.size}경기 알림 켜기
+ </button>`;
+
+ return screen("경기별 알림 선택",event.name,content);
+}
+
+function alertsScreen(){
+ const fights=allFights().filter(f=>
+  Object.prototype.hasOwnProperty.call(enabled,f.id)
+ );
+ const count=fights.filter(f=>isEnabled(f.id)).length;
+
+ const cards=fights.map(f=>`
+  <div class="alert-card">
+   <div class="alert-top">
+    <span class="tag">${esc(f.category)}</span>
+    <button class="switch ${isEnabled(f.id)?"on":""}"
+     data-action="toggle" data-id="${esc(f.id)}"
+     aria-label="${esc(f.name)} 알림 변경">
+    </button>
+   </div>
+   <div class="alert-name">${esc(f.name)}</div>
+   <div class="fight-info">
+    ${esc(f.eventName)} · ${esc(f.division)}
+   </div>
+   <div class="alert-status">
+    ${isEnabled(f.id)?"알림 설정됨":"알림 꺼짐"}
+   </div>
+  </div>
+ `).join("");
+
+ return screen(
+  "내 알림 관리",
+  `켜진 알림 ${count}개`,
+  cards+
+  `<button class="primary secondary"
+   onclick="navigate('select')">경기 알림 추가하기</button>`
+ );
+}
+
+function receiveScreen(){
+ if(!notification){
+  return screen(
+   "알림 수신",
+   "경기 시작 알림",
+   `
+   <div class="hint">아직 수신된 알림이 없습니다.</div>
+   ${mode==="demo"
+    ?`<button class="primary"
+      onclick="endCoMain()">코메인 경기 종료 처리</button>`
+    :""}
+   `
+  );
+ }
+
+ const f=findFight(notification.fightId);
+
+ return `
+ <div class="status-bar" style="background:#152753;color:white">
+  <span>9:41</span><span>●●● ▰</span>
+ </div>
+ <div class="lock">
+  <button class="notification"
+   onclick="navigate('alerts')">
+   〈 내 알림으로 돌아가기
+  </button>
+  <div class="lock-date">
+   UFC ALERT ·
+   ${new Date(notification.at).toLocaleDateString("ko-KR")}
+  </div>
+  <div class="lock-time">
+   ${new Date(notification.at).toLocaleTimeString("ko-KR",{
+    hour:"2-digit",minute:"2-digit",hour12:false
+   })}
+  </div>
+  <button class="notification"
+   data-action="detail" data-id="${esc(f?.id||"demo-main")}">
+   <strong>🥊 UFC ALERT · 지금</strong>
+   <p><b>선택한 경기 시작 임박</b></p>
+   <p>${esc(f?.name||"메인 이벤트")}</p>
+   <p>직전 경기 종료가 확인되었습니다.</p>
+  </button>
+ </div>`;
+}
+
+function renderMeta(){
+ document.getElementById("liveStatus").textContent=dataStatus;
+ document.getElementById("lastUpdated").textContent=
+  dataUpdatedAt
+   ?"수집: "+formatKst(dataUpdatedAt)
+   :"첫 수집 전";
+
+ document.getElementById("changeList").innerHTML=
+  latestChanges.length
+   ?latestChanges.map(x=>`<p>• ${esc(x)}</p>`).join("")
+   :"<p>새로운 변경 기록이 없습니다.</p>";
+
+ document.getElementById("modeLive").classList.toggle(
+  "active",mode==="live"
+ );
+ document.getElementById("modeDemo").classList.toggle(
+  "active",mode==="demo"
+ );
+
+ document.getElementById("currentSource").textContent=uiStatus();
+
+ document.getElementById("sourceBadge").textContent=
+  mode==="live"?"자동 갱신":"UFC 333";
+
+ document.getElementById("demoControls").hidden=
+  mode!=="demo";
+
+ document.getElementById("demoStatus").textContent=
+  coEnded?"🟢 코메인 경기 종료":"🟠 코메인 경기 진행 중";
+
+ document.getElementById("demoEnd").disabled=coEnded;
+}
+
+function render(){
+ document.getElementById("sidebarNav").innerHTML=
+  menu.map(([id,label])=>`
+   <button class="nav-button ${page===id?"active":""}"
+    onclick="navigate('${id}')">
+    ${label}
+   </button>
   `).join("");
 
-  if (!body) {
-    body = emptyMessage("등록 가능한 경기가 없습니다.");
-  }
+ const screens={
+  list:listScreen,
+  detail:detailScreen,
+  select:selectScreen,
+  alerts:alertsScreen,
+  receive:receiveScreen
+ };
 
-  body += `
-    <div class="hint">
-      경기별 알림 설정은 현재 브라우저에 저장됩니다.
-    </div>
-  `;
+ document.getElementById("phoneScreen").innerHTML=
+  (screens[page]||listScreen)();
 
-  return screen(
-    "내 알림 관리",
-    `켜진 알림 설정 ${count}개`,
-    body
-  );
+ renderMeta();
 }
 
-function render() {
-  document.getElementById("sidebarNav").innerHTML =
-    menu.map(([id,label]) => `
-      <button
-        class="nav-button ${page === id ? "active" : ""}"
-        onclick="navigate('${id}')">
-        ${label}
-      </button>
-    `).join("");
+document.addEventListener("click",event=>{
+ const target=event.target.closest("[data-action]");
+ if(!target||target.disabled)return;
 
-  const screens = {
-    list:listScreen,
-    detail:detailScreen,
-    select:selectScreen,
-    alerts:alertsScreen
-  };
+ const action=target.dataset.action;
+ const id=target.dataset.id;
 
-  document.getElementById("phoneScreen").innerHTML =
-    (screens[page] || listScreen)();
-}
+ if(action==="detail")openDetail(id);
+ else if(action==="toggle")toggleAlert(id);
+ else if(action==="selected")toggleSelected(id);
+ else if(action==="register")registerSelected();
+ else if(action==="event")selectEvent(id);
+ else if(action==="first"){
+  const f=currentEvent()?.fights?.[0];
+  if(f)openDetail(f.id);
+ }
+});
 
-async function loadSchedule() {
-  const status = document.getElementById("updateStatus");
-  status.textContent = "최신 일정 확인 중...";
+document.addEventListener("change",event=>{
+ if(event.target.id==="eventSelect"){
+  selectEvent(event.target.value);
+ }
+});
 
-  try {
-    const response = await fetch(
-      DATA_URL + "?t=" + Date.now(),
-      {cache:"no-store"}
-    );
-
-    if (!response.ok) {
-      throw new Error("데이터 요청 실패");
-    }
-
-    const data = await response.json();
-
-    if (!Array.isArray(data.events)) {
-      throw new Error("데이터 형식 오류");
-    }
-
-    const oldEventId = currentEvent()?.id;
-    const oldFightId = currentFight()?.id;
-    const now = Date.now();
-
-    const valid = data.events
-      .filter(e =>
-        e &&
-        e.id != null &&
-        e.name &&
-        e.date &&
-        Array.isArray(e.fights) &&
-        Number.isFinite(Date.parse(e.date)) &&
-        Date.parse(e.date) >= now - 86400000
-      )
-      .map(e => ({
-        ...e,
-        id:String(e.id),
-        fights:e.fights.map((f,i) => ({
-          ...f,
-          id:String(f.id ?? `${e.id}-${i}`),
-          name:String(f.name || "대진 미정")
-        }))
-      }))
-      .sort((a,b) =>
-        Date.parse(a.date) - Date.parse(b.date)
-      );
-
-    events = valid;
-
-    eventIndex = Math.max(
-      0,
-      events.findIndex(e => e.id === oldEventId)
-    );
-
-    detailIndex = Math.max(
-      0,
-      currentFights().findIndex(f => f.id === oldFightId)
-    );
-
-    const validKeys = new Set(
-      events.flatMap(e =>
-        e.fights.map(f => e.id + ":" + f.id)
-      )
-    );
-
-    selected = new Set(
-      [...selected].filter(key => validKeys.has(key))
-    );
-
-    updateTime = data.updated_at || null;
-
-    status.textContent = valid.length
-      ? `예정된 UFC 대회 ${valid.length}개 확인`
-      : "예정된 UFC 대회가 없습니다.";
-
-    if (updateTime && valid.length) {
-      status.textContent +=
-        " · 갱신 " + formatDate(updateTime);
-    }
-
-    document.getElementById("sourceNotice").textContent =
-      "UFC 경기 정보 · 한국시간(KST) 기준";
-
-    render();
-
-  } catch(error) {
-    console.warn("일정 업데이트 실패:",error);
-
-    status.textContent =
-      "일정 연결 실패 · 기존 정보 유지";
-
-    document.getElementById("sourceNotice").textContent =
-      "경기 정보를 불러오지 못했습니다.";
-
-    render();
-  }
-}
+selectedIds.add("demo-co");
+selectedIds.add("demo-main");
 
 render();
-loadSchedule();
+refreshLiveData();
 
-setInterval(() => {
-  if (!document.hidden) {
-    loadSchedule();
-  }
-}, 5 * 60 * 1000);
+setInterval(()=>{
+ if(!document.hidden)refreshLiveData();
+},REFRESH_MS);
 
 </script>
 </body>
