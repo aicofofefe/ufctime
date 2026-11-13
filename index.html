@@ -3,258 +3,590 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>UFC ALERT | 원하는 경기만, 놓치지 않게</title>
+
 <style>
-:root{--navy:#111a30;--pink:#ed275d;--pale:#fff0f5;--text:#1a2235;--muted:#8290a6;--bg:#f5f7fb}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font-family:'Malgun Gothic',Arial,sans-serif}
-button,select{font:inherit}
-button{border:0;cursor:pointer}
-button:disabled{opacity:.5;cursor:not-allowed}
-.layout{display:grid;grid-template-columns:225px minmax(0,1fr) 275px;min-height:100vh}
-.sidebar{background:var(--navy);color:white;padding:30px 18px}
-.brand{font-size:23px;font-weight:900}
-.brand span{color:var(--pink)}
-.brand-desc{color:#9aa8c0;font-size:11px;margin:8px 0 45px}
-.side-label{color:#8090ad;font-size:11px;letter-spacing:2px;margin:0 10px 15px}
-.nav-button{display:block;width:100%;padding:15px;margin-bottom:8px;background:transparent;color:#bdc7d9;text-align:left;border-radius:10px;font-size:13px}
-.nav-button.active{background:#2b3650;color:white;border-left:4px solid var(--pink)}
-.sidebar-footer{margin-top:60px;padding-top:20px;border-top:1px solid #354159;color:#aab6cb;font-size:11px;line-height:2}
-.workspace{padding:35px 20px;text-align:center}
-.eyebrow{color:var(--pink);font-weight:900;letter-spacing:2px;font-size:12px}
-h1{font-size:30px;line-height:1.4;margin:18px 0 10px}
-.description{color:var(--muted);font-size:13px;line-height:1.8}
-.phone{width:340px;max-width:100%;height:670px;background:white;border:9px solid #151e33;border-radius:42px;margin:30px auto 20px;overflow:hidden;position:relative;box-shadow:0 22px 50px #111a3030}
-.phone:before{content:'';position:absolute;width:100px;height:23px;background:#151e33;border-radius:0 0 16px 16px;left:50%;top:0;transform:translateX(-50%);z-index:5}
-.phone-screen{height:100%;display:flex;flex-direction:column}
-.status-bar{height:40px;flex-shrink:0;display:flex;justify-content:space-between;padding:12px 22px 8px;font-size:10px;font-weight:bold}
-.screen-content{flex:1;min-height:0;overflow-y:auto;padding:10px 16px 16px;text-align:left}
-.app-logo{text-align:center;color:var(--pink);font-size:12px;font-weight:900;letter-spacing:2px;margin:10px 0 25px}
-.screen-title{text-align:center;font-size:19px;font-weight:900;margin:0 0 8px}
-.screen-desc{text-align:center;color:#929eb0;font-size:10px;line-height:1.7;margin-bottom:20px}
-.tabs{display:flex;background:#f1f3f7;border-radius:12px;padding:4px;margin-bottom:15px}
-.tab{flex:1;padding:10px 5px;background:transparent;border-radius:9px;color:#8896aa;font-size:11px;font-weight:bold}
-.tab.active{color:white;background:var(--pink)}
-.fight-card{display:block;width:100%;background:#f6f7fb;border:1px solid #e9edf4;padding:15px;border-radius:13px;margin-bottom:10px;text-align:left;color:var(--text)}
-.fight-card:hover{background:#fff3f7;border-color:#f5b9ca}
-.card-header{display:flex;justify-content:space-between;gap:8px;margin-bottom:10px}
-.tag{color:var(--pink);font-size:10px;font-weight:900}
-.fight-name{font-size:13px;font-weight:900;line-height:1.6}
-.fight-info{color:#95a2b5;font-size:10px;margin-top:8px;line-height:1.7}
-.primary{display:block;width:100%;color:white;background:var(--pink);padding:13px;border-radius:12px;font-size:12px;font-weight:900;margin-top:12px}
-.secondary{background:var(--pale);color:#cb2351}
-.section-label{text-align:center;font-size:11px;font-weight:bold;margin:22px 0 12px}
-.hint{padding:13px;color:#65738c;font-size:10px;line-height:1.8;background:var(--pale);border-radius:10px;text-align:center;margin:15px 0}
-.hero{background:linear-gradient(135deg,#1d2b4c,#111a30);border-radius:14px;color:white;text-align:center;padding:23px 10px}
-.hero h3{margin:15px 0;font-size:15px}
-.hero p{font-size:10px;color:#adb8ce}
-.select-card{display:flex;align-items:center;gap:12px;width:100%;padding:13px 11px;border-radius:12px;background:#f6f7fb;margin-bottom:9px;text-align:left}
-.select-card.selected{background:var(--pale)}
-.check-circle{width:21px;height:21px;border-radius:50%;border:2px solid #b6c2d4;display:grid;place-items:center;flex-shrink:0;color:white}
-.selected .check-circle{background:var(--pink);border-color:var(--pink)}
-.select-info{flex:1}
-.select-info strong{font-size:11px}
-.select-info p{font-size:10px;margin:5px 0}
-.alert-card{background:#f6f7fb;border-radius:12px;padding:14px;margin-bottom:10px}
-.alert-top{display:flex;align-items:center;justify-content:space-between}
-.alert-name{font-size:12px;font-weight:900;margin:9px 0}
-.alert-status{color:var(--pink);font-size:10px;font-weight:bold;margin-top:9px}
-.switch{width:38px;height:22px;background:#b5bfd0;border-radius:20px;position:relative}
-.switch:after{content:'';width:16px;height:16px;background:white;border-radius:50%;position:absolute;top:3px;left:3px}
-.switch.on{background:var(--pink)}
-.switch.on:after{left:19px}
-.bottom-nav{height:60px;flex-shrink:0;display:flex;justify-content:space-around;border-top:1px solid #edf0f4;padding:6px}
-.bottom-nav button{flex:1;border-radius:10px;color:#9ba8bb;background:white;font-size:11px}
-.bottom-nav button.active{background:var(--pale);color:var(--pink);font-weight:900}
-.event-select{width:100%;padding:12px;background:white;border:1px solid #e5eaf2;border-radius:10px;font-size:11px;margin-bottom:14px}
-.panel{background:white;padding:35px 20px;border-left:1px solid #e5eaf2}
-.panel h2{font-size:18px}
-.panel-card{border:1px solid #e5eaf2;padding:18px;border-radius:15px;margin:20px 0;font-size:12px}
-.panel-card p{color:var(--muted);line-height:1.8}
-.panel-button{width:100%;padding:12px;border-radius:10px;color:white;background:var(--pink);font-size:12px;font-weight:bold;margin:8px 0}
-.panel-note{background:#f3f5f9;border-radius:10px;padding:14px;color:#69788f;line-height:1.8;font-size:11px}
-@media(max-width:1100px){
-.layout{grid-template-columns:190px 1fr}
-.panel{grid-column:2}
+:root {
+  --navy:#111a30;
+  --pink:#ed275d;
+  --soft:#fff0f5;
+  --text:#1a2235;
+  --muted:#8290a6;
+  --bg:#f5f7fb;
 }
-@media(max-width:700px){
-.layout{display:block}
-.sidebar{display:none}
-.workspace{padding:25px 12px}
-.panel{border-top:1px solid #e5eaf2}
-h1{font-size:25px}
+* {box-sizing:border-box}
+body {
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:"Malgun Gothic",Arial,sans-serif;
+}
+button,select {font:inherit}
+button {border:0;cursor:pointer}
+button:disabled {opacity:.5;cursor:not-allowed}
+.layout {
+  display:grid;
+  grid-template-columns:230px minmax(0,1fr) 280px;
+  min-height:100vh;
+}
+.sidebar {
+  background:var(--navy);
+  color:white;
+  padding:30px 18px;
+}
+.brand {font-size:23px;font-weight:900}
+.brand span {color:var(--pink)}
+.brand-desc {
+  color:#9aa8c0;
+  font-size:11px;
+  margin:8px 0 45px;
+}
+.side-label {
+  color:#8090ad;
+  font-size:11px;
+  letter-spacing:2px;
+  margin:0 10px 15px;
+}
+.nav-button {
+  display:block;
+  width:100%;
+  padding:15px;
+  margin-bottom:8px;
+  background:transparent;
+  color:#bdc7d9;
+  text-align:left;
+  border-radius:10px;
+  font-size:13px;
+}
+.nav-button.active {
+  background:#2b3650;
+  color:white;
+  border-left:4px solid var(--pink);
+}
+.sidebar-footer {
+  margin-top:60px;
+  padding-top:20px;
+  border-top:1px solid #354159;
+  color:#aab6cb;
+  font-size:11px;
+  line-height:2;
+}
+.workspace {padding:35px 20px;text-align:center}
+.eyebrow {
+  color:var(--pink);
+  font-weight:900;
+  letter-spacing:2px;
+  font-size:12px;
+}
+h1 {font-size:30px;line-height:1.4}
+.description {
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.8;
+}
+.phone {
+  width:340px;
+  max-width:100%;
+  height:670px;
+  background:white;
+  border:9px solid #151e33;
+  border-radius:42px;
+  margin:30px auto 20px;
+  overflow:hidden;
+  position:relative;
+  box-shadow:0 22px 50px #111a3030;
+}
+.phone:before {
+  content:"";
+  position:absolute;
+  width:100px;
+  height:23px;
+  background:#151e33;
+  border-radius:0 0 16px 16px;
+  left:50%;
+  top:0;
+  transform:translateX(-50%);
+  z-index:5;
+}
+.phone-screen {
+  height:100%;
+  display:flex;
+  flex-direction:column;
+}
+.status-bar {
+  height:40px;
+  flex-shrink:0;
+  display:flex;
+  justify-content:space-between;
+  padding:12px 22px 8px;
+  font-size:10px;
+  font-weight:bold;
+}
+.screen-content {
+  flex:1;
+  min-height:0;
+  overflow-y:auto;
+  padding:10px 16px 16px;
+  text-align:left;
+}
+.app-logo {
+  text-align:center;
+  color:var(--pink);
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:2px;
+  margin:10px 0 25px;
+}
+.screen-title {
+  text-align:center;
+  font-size:19px;
+  font-weight:900;
+  margin:0 0 8px;
+}
+.screen-desc {
+  text-align:center;
+  color:#929eb0;
+  font-size:10px;
+  line-height:1.7;
+  margin-bottom:20px;
+}
+.tabs {
+  display:flex;
+  background:#f1f3f7;
+  border-radius:12px;
+  padding:4px;
+  margin-bottom:15px;
+}
+.tab {
+  flex:1;
+  padding:10px 5px;
+  background:transparent;
+  border-radius:9px;
+  color:#8896aa;
+  font-size:11px;
+  font-weight:bold;
+}
+.tab.active {color:white;background:var(--pink)}
+.fight-card {
+  display:block;
+  width:100%;
+  background:#f6f7fb;
+  border:1px solid #e9edf4;
+  padding:15px;
+  border-radius:13px;
+  margin-bottom:10px;
+  text-align:left;
+  color:var(--text);
+}
+.fight-card:hover {
+  background:#fff3f7;
+  border-color:#f5b9ca;
+}
+.card-header {
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  margin-bottom:10px;
+}
+.tag {
+  color:var(--pink);
+  font-size:10px;
+  font-weight:900;
+}
+.time {color:#8996ab;font-size:10px}
+.fight-name {
+  font-size:13px;
+  font-weight:900;
+  line-height:1.6;
+}
+.fight-info {
+  color:#95a2b5;
+  font-size:10px;
+  margin-top:8px;
+  line-height:1.7;
+}
+.primary {
+  display:block;
+  width:100%;
+  background:var(--pink);
+  color:white;
+  padding:13px;
+  border-radius:12px;
+  font-size:12px;
+  font-weight:900;
+  margin-top:12px;
+}
+.secondary {background:var(--soft);color:#cb2351}
+.section-label {
+  text-align:center;
+  font-size:11px;
+  font-weight:bold;
+  margin:22px 0 12px;
+}
+.hint {
+  padding:13px;
+  color:#65738c;
+  font-size:10px;
+  line-height:1.8;
+  background:var(--soft);
+  border-radius:10px;
+  text-align:center;
+  margin:15px 0;
+}
+.hero {
+  background:linear-gradient(135deg,#1d2b4c,#111a30);
+  border-radius:14px;
+  color:white;
+  text-align:center;
+  padding:23px 10px;
+}
+.hero h3 {margin:15px 0;font-size:15px}
+.hero p {font-size:10px;color:#adb8ce}
+.select-card {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  width:100%;
+  padding:13px 11px;
+  border-radius:12px;
+  background:#f6f7fb;
+  margin-bottom:9px;
+  text-align:left;
+}
+.select-card.selected {background:var(--soft)}
+.check-circle {
+  width:21px;
+  height:21px;
+  border-radius:50%;
+  border:2px solid #b6c2d4;
+  display:grid;
+  place-items:center;
+  flex-shrink:0;
+  color:white;
+}
+.selected .check-circle {
+  background:var(--pink);
+  border-color:var(--pink);
+}
+.select-info {flex:1}
+.select-info strong {font-size:11px}
+.select-info p {font-size:10px;margin:5px 0}
+.alert-card {
+  background:#f6f7fb;
+  border-radius:12px;
+  padding:14px;
+  margin-bottom:10px;
+}
+.alert-top {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.alert-name {
+  font-size:12px;
+  font-weight:900;
+  margin:9px 0;
+}
+.alert-status {
+  color:var(--pink);
+  font-size:10px;
+  font-weight:bold;
+  margin-top:9px;
+}
+.switch {
+  width:38px;
+  height:22px;
+  background:#b5bfd0;
+  border-radius:20px;
+  position:relative;
+}
+.switch:after {
+  content:"";
+  width:16px;
+  height:16px;
+  background:white;
+  border-radius:50%;
+  position:absolute;
+  top:3px;
+  left:3px;
+}
+.switch.on {background:var(--pink)}
+.switch.on:after {left:19px}
+.bottom-nav {
+  height:60px;
+  flex-shrink:0;
+  display:flex;
+  justify-content:space-around;
+  border-top:1px solid #edf0f4;
+  padding:6px;
+}
+.bottom-nav button {
+  flex:1;
+  border-radius:10px;
+  background:white;
+  color:#9ba8bb;
+  font-size:11px;
+}
+.bottom-nav button.active {
+  background:var(--soft);
+  color:var(--pink);
+  font-weight:900;
+}
+.event-select {
+  width:100%;
+  padding:12px;
+  background:white;
+  border:1px solid #e5eaf2;
+  border-radius:10px;
+  font-size:11px;
+  margin-bottom:14px;
+}
+.panel {
+  background:white;
+  padding:35px 20px;
+  border-left:1px solid #e5eaf2;
+}
+.panel h2 {font-size:18px}
+.panel-card {
+  border:1px solid #e5eaf2;
+  padding:18px;
+  border-radius:15px;
+  margin:20px 0;
+  font-size:12px;
+}
+.panel-card p {color:var(--muted);line-height:1.8}
+.panel-button {
+  width:100%;
+  padding:12px;
+  border-radius:10px;
+  color:white;
+  background:var(--pink);
+  font-size:12px;
+  font-weight:bold;
+  margin:8px 0;
+}
+.panel-note {
+  background:#f3f5f9;
+  border-radius:10px;
+  padding:14px;
+  color:#69788f;
+  line-height:1.8;
+  font-size:11px;
+}
+@media(max-width:1100px) {
+  .layout {grid-template-columns:190px 1fr}
+  .panel {grid-column:2}
+}
+@media(max-width:700px) {
+  .layout {display:block}
+  .sidebar {display:none}
+  .workspace {padding:25px 12px}
+  .panel {border-top:1px solid #e5eaf2}
+  h1 {font-size:25px}
 }
 </style>
 </head>
+
 <body>
-
 <div class="layout">
-  <aside class="sidebar">
-    <div class="brand">UFC <span>ALERT</span></div>
-    <div class="brand-desc">LIVE FIGHT NOTIFICATION</div>
-    <div class="side-label">MENU</div>
-    <nav id="sidebarNav"></nav>
-    <div class="sidebar-footer">
-      원하는 경기만, 놓치지 않게<br>
-      UFC 경기 일정 자동 갱신<br>
-      경기별 맞춤 알림
-    </div>
-  </aside>
 
-  <main class="workspace">
-    <div class="eyebrow">UFC ALERT</div>
-    <h1>경기 시작은 달라도,<br>알림은 정확한 순간에.</h1>
-    <p class="description">
-      UFC 경기 일정 자동 갱신 및 맞춤 알림 서비스<br>
-      관심 경기를 선택하고 알림을 설정하세요.
-    </p>
-    <div class="phone">
-      <div class="phone-screen" id="phoneScreen"></div>
-    </div>
-    <p class="description" id="sourceNotice">
-      경기 정보를 불러오고 있습니다.
-    </p>
-  </main>
+<aside class="sidebar">
+  <div class="brand">UFC <span>ALERT</span></div>
+  <div class="brand-desc">LIVE FIGHT NOTIFICATION</div>
+  <div class="side-label">MENU</div>
+  <nav id="sidebarNav"></nav>
 
-  <aside class="panel">
-    <h2>🥊 UFC 경기 정보</h2>
-    <p class="description">
-      최신 UFC 일정과 공개된 대진표를 확인합니다.
-    </p>
-    <div class="panel-card">
-      <h3>일정 업데이트</h3>
-      <p id="updateStatus">확인 중</p>
-      <button class="panel-button" onclick="loadSchedule()">
-        최신 일정 확인
-      </button>
-    </div>
-    <div class="panel-card">
-      <h3>기능</h3>
-      <p>경기 목록 및 상세 정보</p>
-      <p>경기별 알림 설정 및 관리</p>
-      <p>다음 경기·다음 대회 이동</p>
-    </div>
-    <div class="panel-note">
-      경기 정보는 외부 데이터가 갱신된 후 반영됩니다.<br><br>
-      예정 시각은 실제 경기 시작 시각과 다를 수 있습니다.<br><br>
-      실시간 종료 감지 및 모바일 푸시는 아직 연결되지 않았습니다.
-    </div>
-  </aside>
+  <div class="sidebar-footer">
+    원하는 경기만, 놓치지 않게<br>
+    UFC 경기 일정 자동 갱신<br>
+    경기별 맞춤 알림
+  </div>
+</aside>
+
+<main class="workspace">
+  <div class="eyebrow">UFC ALERT</div>
+
+  <h1>
+    경기 시작은 달라도,<br>
+    알림은 정확한 순간에.
+  </h1>
+
+  <p class="description">
+    UFC 경기 일정 자동 갱신 및 맞춤 알림 서비스<br>
+    관심 있는 경기를 선택하고 알림을 설정하세요.
+  </p>
+
+  <div class="phone">
+    <div class="phone-screen" id="phoneScreen"></div>
+  </div>
+
+  <p class="description" id="sourceNotice">
+    UFC 경기 정보를 불러오고 있습니다.
+  </p>
+</main>
+
+<aside class="panel">
+  <h2>🥊 UFC 경기 정보</h2>
+
+  <p class="description">
+    최신 UFC 대회 일정과 공개된 대진표를 확인합니다.
+  </p>
+
+  <div class="panel-card">
+    <h3>경기 일정 업데이트</h3>
+    <p id="updateStatus">최신 정보 확인 중</p>
+
+    <button class="panel-button" onclick="loadSchedule()">
+      최신 일정 확인
+    </button>
+  </div>
+
+  <div class="panel-card">
+    <h3>서비스 기능</h3>
+    <p>01. UFC 대회 일정 확인</p>
+    <p>02. 원하는 경기 선택</p>
+    <p>03. 경기별 알림 설정</p>
+    <p>04. 등록된 알림 관리</p>
+  </div>
+
+  <div class="panel-note">
+    UFC 경기 일정과 공개된 대진표는
+    외부 경기 데이터를 기준으로 갱신됩니다.<br><br>
+    개별 경기 시작 시각은 앞선 경기의 진행 상황에
+    따라 변경될 수 있습니다.
+  </div>
+</aside>
+
 </div>
 
 <script>
-const DATA_URL = './data/ufc_schedule.json';
+const DATA_URL = "./data/ufc_schedule.json";
 
 const menu = [
-  ['list','경기 목록'],
-  ['detail','경기 상세'],
-  ['select','경기 선택'],
-  ['alerts','내 알림'],
-  ['receive','알림 수신']
+  ["list","경기 목록"],
+  ["detail","경기 상세"],
+  ["select","경기 선택"],
+  ["alerts","내 알림"]
 ];
 
 let events = [];
 let eventIndex = 0;
-let page = 'list';
+let page = "list";
 let detailIndex = 0;
-let tab = 'main';
+let listTab = "main";
 let selected = new Set();
 let enabled = {};
+let updateTime = null;
 
 try {
-  const stored = JSON.parse(
-    localStorage.getItem('ufcAlerts') || '{}'
+  const saved = JSON.parse(
+    localStorage.getItem("ufcAlerts") || "{}"
   );
   if (
-    stored &&
-    typeof stored === 'object' &&
-    !Array.isArray(stored)
+    saved &&
+    typeof saved === "object" &&
+    !Array.isArray(saved)
   ) {
-    enabled = stored;
+    enabled = saved;
   }
-} catch {}
+} catch {
+  enabled = {};
+}
 
 function save() {
   try {
-    localStorage.setItem('ufcAlerts', JSON.stringify(enabled));
-  } catch {}
+    localStorage.setItem(
+      "ufcAlerts",
+      JSON.stringify(enabled)
+    );
+  } catch(error) {
+    console.warn(error);
+  }
 }
 
-function esc(v) {
-  return String(v ?? '')
-    .replace(/&/g,'&amp;')
-    .replace(/</g,'&lt;')
-    .replace(/>/g,'&gt;')
-    .replace(/"/g,'&quot;')
-    .replace(/'/g,'&#39;');
+function esc(value) {
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#39;");
 }
 
-function event() {
+function currentEvent() {
   return events[eventIndex] || null;
 }
 
-function fights() {
-  return event()?.fights || [];
+function currentFights() {
+  return currentEvent()?.fights || [];
 }
 
-function fight() {
-  return fights()[detailIndex] || null;
+function currentFight() {
+  return currentFights()[detailIndex] || null;
 }
 
-function key(f) {
-  return event().id + ':' + f.id;
+function fightKey(f) {
+  return currentEvent().id + ":" + f.id;
 }
 
-function on(f) {
-  return enabled[key(f)] === true;
+function isEnabled(f) {
+  return enabled[fightKey(f)] === true;
 }
 
-function dateKST(v) {
-  const d = new Date(v);
-  return v && !Number.isNaN(d.getTime())
-    ? new Intl.DateTimeFormat('ko-KR', {
-        timeZone:'Asia/Seoul',
-        month:'long',
-        day:'numeric',
-        weekday:'short',
-        hour:'2-digit',
-        minute:'2-digit',
-        hour12:false
-      }).format(d)
-    : '일정 미정';
+function formatDate(value) {
+  if (!value) return "일정 미정";
+
+  const date = new Date(value);
+
+  if (Number.isNaN(date.getTime())) {
+    return "일정 미정";
+  }
+
+  return new Intl.DateTimeFormat("ko-KR",{
+    timeZone:"Asia/Seoul",
+    year:"numeric",
+    month:"long",
+    day:"numeric",
+    weekday:"short",
+    hour:"2-digit",
+    minute:"2-digit",
+    hour12:false
+  }).format(date);
 }
 
-function navigate(p) {
-  page = p;
+function navigate(target) {
+  page = target;
   render();
 }
 
-function changeEvent(i) {
-  if (!events[i]) return;
-  eventIndex = i;
+function changeEvent(index) {
+  if (!events[index]) return;
+
+  eventIndex = index;
   detailIndex = 0;
   selected.clear();
-  page = 'list';
+  page = "list";
   render();
 }
 
-function openDetail(i) {
-  if (!fights()[i]) return;
-  detailIndex = i;
-  page = 'detail';
+function openDetail(index) {
+  if (!currentFights()[index]) return;
+
+  detailIndex = index;
+  page = "detail";
   render();
 }
 
 function nextFight() {
-  if (detailIndex < fights().length - 1) {
+  if (detailIndex < currentFights().length - 1) {
     detailIndex++;
     render();
     return;
   }
 
   for (let i = eventIndex + 1; i < events.length; i++) {
-    if (events[i].fights.length) {
+    if (events[i].fights.length > 0) {
       eventIndex = i;
       detailIndex = 0;
       selected.clear();
@@ -263,10 +595,10 @@ function nextFight() {
     }
   }
 
-  alert('더 이상 예정된 경기가 없습니다.');
+  alert("마지막 경기입니다.");
 }
 
-function prevFight() {
+function previousFight() {
   if (detailIndex > 0) {
     detailIndex--;
     render();
@@ -274,7 +606,7 @@ function prevFight() {
   }
 
   for (let i = eventIndex - 1; i >= 0; i--) {
-    if (events[i].fights.length) {
+    if (events[i].fights.length > 0) {
       eventIndex = i;
       detailIndex = events[i].fights.length - 1;
       selected.clear();
@@ -283,328 +615,392 @@ function prevFight() {
     }
   }
 
-  alert('첫 번째 경기입니다.');
+  alert("첫 번째 경기입니다.");
 }
 
-function screen(title, desc, body) {
+function screen(title,desc,body) {
   return `
     <div class="status-bar">
       <span>9:41</span>
       <span>●●● ▰</span>
     </div>
+
     <div class="screen-content">
       <div class="app-logo">UFC ALERT</div>
       <h2 class="screen-title">${esc(title)}</h2>
       <div class="screen-desc">${esc(desc)}</div>
       ${body}
     </div>
+
     <div class="bottom-nav">
-      <button class="${page === 'list' || page === 'detail' ? 'active' : ''}"
-        onclick="navigate('list')">● 경기</button>
-      <button class="${page === 'alerts' ? 'active' : ''}"
-        onclick="navigate('alerts')">◉ 내 알림</button>
-      <button class="${page === 'select' ? 'active' : ''}"
-        onclick="navigate('select')">⚙ 설정</button>
+      <button
+        class="${page === "list" || page === "detail" ? "active" : ""}"
+        onclick="navigate('list')">
+        ● 경기
+      </button>
+      <button
+        class="${page === "alerts" ? "active" : ""}"
+        onclick="navigate('alerts')">
+        ◉ 내 알림
+      </button>
+      <button
+        class="${page === "select" ? "active" : ""}"
+        onclick="navigate('select')">
+        ⚙ 설정
+      </button>
     </div>
   `;
 }
 
-function empty(text) {
-  return `<div class="hint">${esc(text)}</div>`;
+function emptyMessage(message) {
+  return `<div class="hint">${esc(message)}</div>`;
 }
 
-function card(f, i) {
+function fightCard(f,index) {
   return `
-    <button class="fight-card" onclick="openDetail(${i})">
+    <button class="fight-card" onclick="openDetail(${index})">
       <div class="card-header">
-        <span class="tag">${esc(f.category || '경기')}</span>
-        <span class="time">${esc(f.rounds || '')}</span>
+        <span class="tag">${esc(f.category || "경기")}</span>
+        <span class="time">${esc(f.rounds || "라운드 미정")}</span>
       </div>
       <div class="fight-name">${esc(f.name)}</div>
       <div class="fight-info">
-        ${esc(f.division || '체급 미정')} · 상세 보기
+        ${esc(f.division || "체급 미정")} · 상세 보기
       </div>
     </button>
   `;
 }
 
-function noData() {
+function noEventScreen() {
   return screen(
-    'UFC 경기 일정',
-    '최신 대회 정보',
-    empty('표시할 UFC 경기 정보가 없습니다.') +
-    '<button class="primary" onclick="loadSchedule()">새로고침</button>'
+    "UFC 경기 일정",
+    "최신 경기 정보 확인",
+    `
+      ${emptyMessage("등록된 UFC 경기 정보가 없습니다.")}
+      <button class="primary" onclick="loadSchedule()">
+        최신 경기 정보 불러오기
+      </button>
+    `
   );
 }
 
 function listScreen() {
-  if (!event()) return noData();
+  const event = currentEvent();
 
-  const items = fights().map((f, i) => ({f, i}));
-  const main = items.filter(({f}) =>
-    ['메인 이벤트','코메인 이벤트'].includes(f.category)
+  if (!event) return noEventScreen();
+
+  const indexed = currentFights().map(
+    (f,index) => ({f,index})
   );
-  const show = tab === 'main'
-    ? (main.length ? main : items)
-    : items;
+
+  const main = indexed.filter(({f}) =>
+    f.category === "메인 이벤트" ||
+    f.category === "코메인 이벤트"
+  );
+
+  const shown = listTab === "main"
+    ? (main.length ? main : indexed)
+    : indexed;
 
   let body = `
     <div class="hint">
-      ${esc(dateKST(event().date))}<br>
-      ${esc(event().venue || '장소 미정')}
+      ${esc(formatDate(event.date))}<br>
+      ${esc(event.venue || "장소 미정")}
     </div>
+
     <div class="tabs">
-      <button class="tab ${tab === 'main' ? 'active' : ''}"
-        onclick="tab='main';render()">메인 경기</button>
-      <button class="tab ${tab === 'all' ? 'active' : ''}"
-        onclick="tab='all';render()">전체 대진</button>
+      <button class="tab ${listTab === "main" ? "active" : ""}"
+        onclick="listTab='main';render()">
+        메인 경기
+      </button>
+
+      <button class="tab ${listTab === "all" ? "active" : ""}"
+        onclick="listTab='all';render()">
+        전체 대진
+      </button>
     </div>
   `;
 
-  body += show.length
-    ? show.map(({f,i}) => card(f,i)).join('')
-    : empty('공개된 대진 정보가 없습니다.');
+  body += shown.length
+    ? shown.map(({f,index}) => fightCard(f,index)).join("")
+    : emptyMessage("공개된 대진표가 없습니다.");
 
   body += `
     <button class="primary secondary"
-      onclick="navigate('select')">알림 받을 경기 선택</button>
+      onclick="navigate('select')">
+      알림 받을 경기 선택하기
+    </button>
   `;
 
   if (events.length > 1) {
     body += `
-      <div class="section-label">대회 선택</div>
+      <div class="section-label">다른 대회 확인</div>
       <select class="event-select"
         onchange="changeEvent(Number(this.value))">
         ${events.map((e,i) => `
-          <option value="${i}" ${i === eventIndex ? 'selected' : ''}>
+          <option value="${i}" ${i === eventIndex ? "selected" : ""}>
             ${esc(e.name)}
           </option>
-        `).join('')}
+        `).join("")}
       </select>
     `;
   }
 
   if (events[eventIndex + 1]) {
+    const next = events[eventIndex + 1];
+
     body += `
       <div class="section-label">다음 대회</div>
       <button class="fight-card"
         onclick="changeEvent(${eventIndex + 1})">
-        <div class="fight-name">
-          ${esc(events[eventIndex + 1].name)}
-        </div>
-        <div class="fight-info">
-          ${esc(dateKST(events[eventIndex + 1].date))}
-        </div>
+        <div class="fight-name">${esc(next.name)}</div>
+        <div class="fight-info">${esc(formatDate(next.date))}</div>
       </button>
     `;
   }
 
   body += `
     <div class="hint">
-      개별 경기 시작 시간은 진행 상황에 따라 달라질 수 있습니다.
+      개별 경기 시작 시각은 진행 상황에 따라 변동될 수 있습니다.
     </div>
   `;
 
-  return screen(event().name, 'UFC 일정 및 공개 대진', body);
+  return screen(
+    event.name,
+    "UFC 경기 일정 및 주요 대진",
+    body
+  );
 }
 
 function detailScreen() {
-  if (!fight()) {
+  const f = currentFight();
+
+  if (!f) {
     return screen(
-      '경기 상세',
-      '경기 선택',
-      empty('상세 정보를 볼 경기를 선택해주세요.') +
-      '<button class="primary" onclick="navigate(\'list\')">경기 목록</button>'
+      "경기 상세",
+      "경기를 선택해주세요",
+      `<button class="primary" onclick="navigate('list')">
+        경기 목록으로 이동
+      </button>`
     );
   }
 
-  const f = fight();
   const statusNames = {
-    pre:'예정',
-    in:'진행 중',
-    post:'종료'
+    pre:"예정",
+    in:"진행 중",
+    post:"종료"
   };
 
   return screen(
-    '경기 상세 및 알림 설정',
-    event().name,
+    "경기 상세 및 알림 설정",
+    currentEvent().name,
     `
       <div class="hero">
         <span class="tag">
-          ${esc(f.category || '경기')} · ${esc(f.rounds || '')}
+          ${esc(f.category || "경기")}
+          · ${esc(f.rounds || "라운드 미정")}
         </span>
         <h3>${esc(f.name)}</h3>
-        <p>${esc(f.division || '체급 미정')}</p>
+        <p>${esc(f.division || "체급 미정")}</p>
       </div>
+
       <div class="section-label">경기 정보</div>
+
       <div class="hint">
-        대회: ${esc(event().name)}<br>
-        일정: ${esc(dateKST(event().date))}<br>
-        장소: ${esc(event().venue || '장소 미정')}<br>
-        진행 상태: ${esc(statusNames[f.status] || '정보 없음')}
+        대회: ${esc(currentEvent().name)}<br>
+        일정: ${esc(formatDate(currentEvent().date))}<br>
+        장소: ${esc(currentEvent().venue || "장소 미정")}<br>
+        진행 상태: ${esc(statusNames[f.status] || "정보 없음")}
       </div>
-      <button class="primary" onclick="toggleAlert(${detailIndex})">
-        ${on(f) ? '알림 설정 끄기' : '이 경기 알림 켜기'}
+
+      <button class="primary"
+        onclick="toggleAlert(${detailIndex})">
+        ${isEnabled(f) ? "알림 끄기" : "이 경기 알림 켜기"}
       </button>
-      <button class="primary secondary" onclick="prevFight()">
+
+      <button class="primary secondary"
+        onclick="previousFight()">
         ← 이전 경기
       </button>
-      <button class="primary secondary" onclick="nextFight()">
+
+      <button class="primary secondary"
+        onclick="nextFight()">
         다음 경기 이동 →
       </button>
     `
   );
 }
 
-function toggleSelected(i) {
-  const f = fights()[i];
+function toggleSelected(index) {
+  const f = currentFights()[index];
   if (!f) return;
-  const k = key(f);
-  selected.has(k) ? selected.delete(k) : selected.add(k);
+
+  const key = fightKey(f);
+
+  if (selected.has(key)) {
+    selected.delete(key);
+  } else {
+    selected.add(key);
+  }
+
   render();
 }
 
 function selectScreen() {
-  if (!event()) return noData();
+  if (!currentEvent()) return noEventScreen();
 
-  let body = fights().map((f,i) => `
-    <button class="select-card ${selected.has(key(f)) ? 'selected' : ''}"
-      onclick="toggleSelected(${i})">
-      <span class="check-circle">
-        ${selected.has(key(f)) ? '✓' : ''}
-      </span>
-      <span class="select-info">
-        <strong>${esc(f.category || '경기')} · ${esc(f.rounds || '')}</strong>
-        <p>${esc(f.name)}</p>
-      </span>
-    </button>
-  `).join('') || empty('선택할 수 있는 경기가 없습니다.');
+  let body = currentFights().map((f,index) => {
+    const checked = selected.has(fightKey(f));
+
+    return `
+      <button class="select-card ${checked ? "selected" : ""}"
+        onclick="toggleSelected(${index})">
+        <span class="check-circle">
+          ${checked ? "✓" : ""}
+        </span>
+        <span class="select-info">
+          <strong>
+            ${esc(f.category || "경기")}
+            · ${esc(f.rounds || "")}
+          </strong>
+          <p>${esc(f.name)}</p>
+        </span>
+      </button>
+    `;
+  }).join("");
+
+  if (!body) {
+    body = emptyMessage("선택 가능한 경기가 없습니다.");
+  }
 
   body += `
-    <button class="primary" onclick="registerSelected()"
-      ${selected.size ? '' : 'disabled'}>
+    <button class="primary"
+      onclick="registerSelected()"
+      ${selected.size === 0 ? "disabled" : ""}>
       선택한 ${selected.size}경기 알림 켜기
     </button>
   `;
 
-  return screen('경기별 알림 선택', event().name, body);
+  return screen(
+    "경기별 알림 선택",
+    currentEvent().name,
+    body
+  );
 }
 
 function registerSelected() {
-  for (const k of selected) enabled[k] = true;
+  for (const key of selected) {
+    enabled[key] = true;
+  }
+
   save();
   selected.clear();
-  navigate('alerts');
+  navigate("alerts");
 }
 
-function toggleAlert(i) {
-  const f = fights()[i];
+function toggleAlert(index) {
+  const f = currentFights()[index];
   if (!f) return;
-  enabled[key(f)] = !on(f);
+
+  enabled[fightKey(f)] = !isEnabled(f);
   save();
   render();
 }
 
 function alertsScreen() {
-  if (!event()) return noData();
+  if (!currentEvent()) return noEventScreen();
 
-  const active = fights().filter(on).length;
+  const fights = currentFights();
+  const count = fights.filter(f => isEnabled(f)).length;
 
-  let body = fights().map((f,i) => `
+  let body = fights.map((f,index) => `
     <div class="alert-card">
       <div class="alert-top">
-        <span class="tag">${esc(f.category || '경기')}</span>
-        <button class="switch ${on(f) ? 'on' : ''}"
+        <span class="tag">${esc(f.category || "경기")}</span>
+        <button
+          class="switch ${isEnabled(f) ? "on" : ""}"
           aria-label="${esc(f.name)} 알림 설정"
-          aria-pressed="${on(f)}"
-          onclick="toggleAlert(${i})">
+          aria-pressed="${isEnabled(f)}"
+          onclick="toggleAlert(${index})">
         </button>
       </div>
+
       <div class="alert-name">${esc(f.name)}</div>
+
       <div class="fight-info">
-        ${esc(f.division || '체급 미정')}
+        ${esc(f.division || "체급 미정")}
+        · ${esc(f.rounds || "")}
       </div>
+
       <div class="alert-status">
-        ${on(f) ? '알림 설정 켜짐' : '알림 설정 꺼짐'}
+        ${isEnabled(f) ? "알림 설정 켜짐" : "알림 설정 꺼짐"}
       </div>
     </div>
-  `).join('') || empty('등록 가능한 경기가 없습니다.');
+  `).join("");
+
+  if (!body) {
+    body = emptyMessage("등록 가능한 경기가 없습니다.");
+  }
 
   body += `
     <div class="hint">
-      알림 설정은 이 브라우저에 저장됩니다.<br>
-      실제 알림 발송 기능은 아직 연결되지 않았습니다.
+      경기별 알림 설정은 현재 브라우저에 저장됩니다.
     </div>
   `;
 
-  return screen('내 알림 관리', `켜진 설정 ${active}개`, body);
-}
-
-function receiveScreen() {
   return screen(
-    '알림 수신',
-    '경기 시작 알림',
-    `
-      <div class="hero">
-        <span class="tag">UFC ALERT</span>
-        <h3>수신한 알림이 없습니다</h3>
-        <p>실시간 알림 기능 연결 전</p>
-      </div>
-      <div class="hint">
-        직전 경기 종료 감지 및 모바일 푸시 발송은
-        아직 제공되지 않습니다.
-      </div>
-      <button class="primary" onclick="navigate('alerts')">
-        내 알림 확인
-      </button>
-    `
+    "내 알림 관리",
+    `켜진 알림 설정 ${count}개`,
+    body
   );
 }
 
 function render() {
-  document.getElementById('sidebarNav').innerHTML =
+  document.getElementById("sidebarNav").innerHTML =
     menu.map(([id,label]) => `
-      <button class="nav-button ${page === id ? 'active' : ''}"
-        onclick="navigate('${id}')">${label}</button>
-    `).join('');
+      <button
+        class="nav-button ${page === id ? "active" : ""}"
+        onclick="navigate('${id}')">
+        ${label}
+      </button>
+    `).join("");
 
-  const views = {
+  const screens = {
     list:listScreen,
     detail:detailScreen,
     select:selectScreen,
-    alerts:alertsScreen,
-    receive:receiveScreen
+    alerts:alertsScreen
   };
 
-  document.getElementById('phoneScreen').innerHTML =
-    (views[page] || listScreen)();
+  document.getElementById("phoneScreen").innerHTML =
+    (screens[page] || listScreen)();
 }
 
 async function loadSchedule() {
-  const status = document.getElementById('updateStatus');
-  status.textContent = '최신 일정 확인 중...';
+  const status = document.getElementById("updateStatus");
+  status.textContent = "최신 일정 확인 중...";
 
   try {
     const response = await fetch(
-      DATA_URL + '?t=' + Date.now(),
-      {cache:'no-store'}
+      DATA_URL + "?t=" + Date.now(),
+      {cache:"no-store"}
     );
 
     if (!response.ok) {
-      throw Error('경기 데이터 요청 실패');
+      throw new Error("데이터 요청 실패");
     }
 
     const data = await response.json();
 
     if (!Array.isArray(data.events)) {
-      throw Error('데이터 형식 오류');
+      throw new Error("데이터 형식 오류");
     }
 
-    const oldEvent = event()?.id;
-    const oldFight = fight()?.id;
+    const oldEventId = currentEvent()?.id;
+    const oldFightId = currentFight()?.id;
     const now = Date.now();
 
-    const clean = data.events
+    const valid = data.events
       .filter(e =>
         e &&
         e.id != null &&
@@ -620,51 +1016,60 @@ async function loadSchedule() {
         fights:e.fights.map((f,i) => ({
           ...f,
           id:String(f.id ?? `${e.id}-${i}`),
-          name:String(f.name || '대진 미정')
+          name:String(f.name || "대진 미정")
         }))
       }))
       .sort((a,b) =>
         Date.parse(a.date) - Date.parse(b.date)
       );
 
-    events = clean;
+    events = valid;
 
     eventIndex = Math.max(
       0,
-      events.findIndex(e => e.id === oldEvent)
+      events.findIndex(e => e.id === oldEventId)
     );
 
     detailIndex = Math.max(
       0,
-      fights().findIndex(f => f.id === oldFight)
+      currentFights().findIndex(f => f.id === oldFightId)
     );
 
-    const keys = new Set(
+    const validKeys = new Set(
       events.flatMap(e =>
-        e.fights.map(f => e.id + ':' + f.id)
+        e.fights.map(f => e.id + ":" + f.id)
       )
     );
 
     selected = new Set(
-      [...selected].filter(k => keys.has(k))
+      [...selected].filter(key => validKeys.has(key))
     );
 
-    status.textContent =
-      `예정된 대회 ${events.length}개 · ` +
-      (data.updated_at
-        ? dateKST(data.updated_at)
-        : '갱신 시각 미정');
+    updateTime = data.updated_at || null;
 
-    document.getElementById('sourceNotice').textContent =
-      '공개 경기 데이터 · 한국시간(KST) 기준';
+    status.textContent = valid.length
+      ? `예정된 UFC 대회 ${valid.length}개 확인`
+      : "예정된 UFC 대회가 없습니다.";
+
+    if (updateTime && valid.length) {
+      status.textContent +=
+        " · 갱신 " + formatDate(updateTime);
+    }
+
+    document.getElementById("sourceNotice").textContent =
+      "UFC 경기 정보 · 한국시간(KST) 기준";
 
     render();
 
-  } catch (err) {
-    console.warn(err);
-    status.textContent = '일정 연결 실패 · 기존 정보 유지';
-    document.getElementById('sourceNotice').textContent =
-      '경기 정보를 불러오지 못했습니다.';
+  } catch(error) {
+    console.warn("일정 업데이트 실패:",error);
+
+    status.textContent =
+      "일정 연결 실패 · 기존 정보 유지";
+
+    document.getElementById("sourceNotice").textContent =
+      "경기 정보를 불러오지 못했습니다.";
+
     render();
   }
 }
@@ -673,9 +1078,11 @@ render();
 loadSchedule();
 
 setInterval(() => {
-  if (!document.hidden) loadSchedule();
+  if (!document.hidden) {
+    loadSchedule();
+  }
 }, 5 * 60 * 1000);
-</script>
 
+</script>
 </body>
 </html>
