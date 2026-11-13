@@ -4,7 +4,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#111a30">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="UFC ALERT">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="apple-touch-icon" href="./icons/icon-192.png">
 <title>UFC ALERT | 대시보드</title>
+
 <style>
 :root {
   --navy:#111a30;
@@ -44,11 +50,10 @@ button:disabled{opacity:.45;cursor:not-allowed}
   text-decoration:none;
   font-weight:bold;
 }
-.back-link:hover{color:white}
 .brand-desc{
   color:#9aa8c0;
   font-size:11px;
-  margin:8px 0 40px;
+  margin:8px 0 32px;
 }
 .side-label{
   color:#8090ad;
@@ -213,9 +218,7 @@ h1{font-size:30px;line-height:1.4}
   color:var(--text);
   margin-bottom:10px;
 }
-button.card:hover{
-  background:var(--soft);
-}
+button.card:hover{background:var(--soft)}
 .card-top{
   display:flex;
   justify-content:space-between;
@@ -227,10 +230,7 @@ button.card:hover{
   font-size:10px;
   font-weight:900;
 }
-.time{
-  color:#8996ab;
-  font-size:10px;
-}
+.time{color:#8996ab;font-size:10px}
 .fight-name{
   font-size:13px;
   font-weight:900;
@@ -280,24 +280,15 @@ button.card:hover{
   color:white;
   text-align:center;
 }
-.hero h3{
-  font-size:15px;
-  margin:15px 0;
-}
-.hero p{
-  font-size:10px;
-  color:#adb8ce;
-}
+.hero h3{font-size:15px;margin:15px 0}
+.hero p{font-size:10px;color:#adb8ce}
 .timeline{
   display:flex;
   justify-content:space-between;
   gap:5px;
   margin:20px 0;
 }
-.step{
-  flex:1;
-  text-align:center;
-}
+.step{flex:1;text-align:center}
 .step-dot{
   width:21px;
   height:21px;
@@ -310,9 +301,7 @@ button.card:hover{
   font-size:10px;
 }
 .step.done .step-dot,
-.step.current .step-dot{
-  background:var(--pink);
-}
+.step.current .step-dot{background:var(--pink)}
 .step.current .step-dot{
   box-shadow:0 0 0 5px #ffedf3;
 }
@@ -327,9 +316,7 @@ button.card:hover{
   align-items:center;
   gap:12px;
 }
-.select-card.selected{
-  background:var(--soft);
-}
+.select-card.selected{background:var(--soft)}
 .check-circle{
   width:21px;
   height:21px;
@@ -482,6 +469,49 @@ button.card:hover{
   font-size:11px;
   line-height:1.8;
 }
+.install-button{
+  display:inline-block;
+  background:var(--pink);
+  color:white;
+  border-radius:12px;
+  padding:13px 22px;
+  font-weight:900;
+  font-size:13px;
+  margin:8px auto;
+}
+.install-guide{
+  position:fixed;
+  inset:0;
+  background:#0e172caa;
+  z-index:100;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+}
+.install-guide[hidden]{display:none}
+.install-guide-inner{
+  width:min(100%,430px);
+  background:white;
+  border-radius:20px;
+  padding:25px;
+  box-shadow:0 24px 70px #0004;
+}
+.install-guide-inner h2{margin:0 0 15px;font-size:21px}
+.install-guide-inner p{
+  font-size:13px;
+  color:#56647b;
+  line-height:1.9;
+}
+.install-guide-inner button{
+  background:var(--pink);
+  color:white;
+  width:100%;
+  padding:12px;
+  border-radius:10px;
+  font-weight:800;
+  margin-top:10px;
+}
 [hidden]{display:none!important}
 @media(max-width:1100px){
   .layout{grid-template-columns:190px 1fr}
@@ -506,6 +536,11 @@ button.card:hover{
     ← 소개 페이지로 돌아가기
   </a>
   <div class="brand-desc">LIVE FIGHT NOTIFICATION</div>
+
+  <button class="panel-button" onclick="installUFCAlert()">
+    📲 휴대폰에 앱 설치
+  </button>
+
   <div class="side-label">SERVICE MENU</div>
   <nav id="sidebarNav"></nav>
   <div class="sidebar-footer">
@@ -517,7 +552,12 @@ button.card:hover{
 
 <main class="workspace">
   <div class="eyebrow">UFC ALERT</div>
-  <h1>경기 시작은 달라도,<br>알림은 정확한 순간에.</h1>
+
+  <h1>
+    경기 시작은 달라도,<br>
+    알림은 정확한 순간에.
+  </h1>
+
   <p class="description">
     UFC 대회 일정과 선수 대진표를 확인하고<br>
     원하는 경기의 알림을 등록하세요.
@@ -534,13 +574,18 @@ button.card:hover{
     </button>
   </div>
 
+  <button class="install-button"
+    onclick="installUFCAlert()">
+    📲 휴대폰에 UFC ALERT 설치 ↓
+  </button>
+
   <div class="phone">
     <div class="phone-screen" id="phoneScreen"></div>
   </div>
 
   <p class="description">
-    실제 경기 종료 자동 감지와
-    모바일 푸시 알림은 아직 연결되지 않았습니다.
+    실제 경기 종료 자동 감지와 모바일 푸시 알림은
+    아직 연결되지 않았습니다.
   </p>
 </main>
 
@@ -561,10 +606,13 @@ button.card:hover{
   <div class="panel-card" id="fightControl">
     <h3>경기 진행 상태</h3>
     <p id="fightStatus">코메인 경기 진행 중</p>
+
     <button class="panel-button" onclick="endCoMain()">
       코메인 경기 종료 처리
     </button>
-    <button class="panel-button reset" onclick="resetFight()">
+
+    <button class="panel-button reset"
+      onclick="resetFight()">
       경기 상태 초기화
     </button>
   </div>
@@ -579,12 +627,21 @@ button.card:hover{
 
 </div>
 
+<div class="install-guide" id="installGuide" hidden>
+  <div class="install-guide-inner"
+    role="dialog" aria-modal="true"
+    aria-labelledby="installTitle">
+    <h2 id="installTitle">UFC ALERT 설치</h2>
+    <div id="installGuideContent"></div>
+    <button onclick="closeInstallGuide()">확인</button>
+  </div>
+</div>
+
 <script>
 "use strict";
 
 const DATA_URL="./data/ufc_schedule.json";
 
-// UFC 333 경기 자료
 const ufc333={
   id:"ufc333",
   name:"UFC 333",
@@ -658,6 +715,7 @@ let enabled={};
 let coEnded=false;
 let notification=null;
 let updatedAt=null;
+let installPrompt=null;
 
 try{
   const stored=JSON.parse(
@@ -714,6 +772,7 @@ function isEnabled(id){
 
 function formatDate(value){
   const d=new Date(value);
+
   if(!value||Number.isNaN(d.getTime())){
     return "일정 미정";
   }
@@ -882,7 +941,8 @@ function screen(title,subtitle,content){
 
 function fightCard(f){
   return `
-    <button class="card" onclick="openDetail('${esc(f.id)}')">
+    <button class="card"
+      onclick="openDetail('${esc(f.id)}')">
       <div class="card-top">
         <span class="tag">${esc(f.category)}</span>
         <span class="time">${esc(f.session||"시간 미정")}</span>
@@ -951,14 +1011,12 @@ function listScreen(){
 
       <select class="event-select"
         onchange="changeEvent(Number(this.value))">
-
         ${eventList().map((e,i)=>`
           <option value="${i}"
             ${i===eventIndex?"selected":""}>
             ${esc(e.name)}
           </option>
         `).join("")}
-
       </select>
     `;
   }
@@ -971,10 +1029,8 @@ function listScreen(){
 
       <button class="card"
         onclick="changeEvent(${eventIndex+1})">
-
         <div class="fight-name">${esc(next.name)}</div>
         <div class="fight-info">${esc(formatDate(next.date))}</div>
-
       </button>
     `;
   }
@@ -1116,7 +1172,6 @@ function selectScreen(){
       <span class="time">
         ${esc(f.session||"시간 변동")}
       </span>
-
     </button>
   `).join("");
 
@@ -1147,10 +1202,7 @@ function alertsScreen(){
   let content=all.map(f=>`
     <div class="alert-card">
       <div class="alert-top">
-
-        <span class="tag">
-          ${esc(f.category)}
-        </span>
+        <span class="tag">${esc(f.category)}</span>
 
         <button
           class="switch ${isEnabled(f.id)?"on":""}"
@@ -1160,9 +1212,7 @@ function alertsScreen(){
         </button>
       </div>
 
-      <div class="alert-name">
-        ${esc(f.name)}
-      </div>
+      <div class="alert-name">${esc(f.name)}</div>
 
       <div class="fight-info">
         ${esc(f.division)} · ${esc(f.rounds)}
@@ -1197,7 +1247,6 @@ function receiveScreen(){
         <div class="hint">
           아직 수신된 알림이 없습니다.
         </div>
-
         ${mode==="demo"?`
           <button class="primary"
             onclick="endCoMain()">
@@ -1218,7 +1267,6 @@ function receiveScreen(){
     </div>
 
     <div class="lock">
-
       <button class="notification"
         onclick="navigate('alerts')">
         〈 내 알림으로 돌아가기
@@ -1234,14 +1282,11 @@ function receiveScreen(){
 
       <button class="notification"
         onclick="openDetail('main')">
-
         <strong>🥊 UFC ALERT · 지금</strong>
         <p><b>메인 이벤트 시작 임박</b></p>
         <p>${esc(notification.name)}</p>
         <p>직전 경기 종료가 확인되었습니다.</p>
-
       </button>
-
     </div>
   `;
 }
@@ -1349,19 +1394,93 @@ async function loadSchedule(){
   }
 }
 
-// 첫 화면: UFC 333
+// 앱 설치 이벤트 저장
+window.addEventListener("beforeinstallprompt",event=>{
+  event.preventDefault();
+  installPrompt=event;
+});
+
+window.addEventListener("appinstalled",()=>{
+  installPrompt=null;
+});
+
+function closeInstallGuide(){
+  document.getElementById("installGuide").hidden=true;
+}
+
+function showInstallGuide(message){
+  document.getElementById("installGuideContent").textContent=message;
+  document.getElementById("installGuide").hidden=false;
+}
+
+async function installUFCAlert(){
+  const installed=
+    window.matchMedia("(display-mode: standalone)").matches||
+    window.navigator.standalone===true;
+
+  if(installed){
+    showInstallGuide(
+      "UFC ALERT가 이미 앱으로 실행되고 있습니다."
+    );
+    return;
+  }
+
+  if(installPrompt){
+    const prompt=installPrompt;
+    installPrompt=null;
+    await prompt.prompt();
+    return;
+  }
+
+  const agent=navigator.userAgent;
+
+  if(/iPhone|iPad|iPod/i.test(agent)){
+    showInstallGuide(
+      "아이폰 설치 방법\n\n"+
+      "1. Safari에서 UFC ALERT 사이트를 엽니다.\n"+
+      "2. 공유 버튼을 누릅니다.\n"+
+      "3. 홈 화면에 추가를 선택합니다.\n"+
+      "4. 추가 버튼을 누릅니다."
+    );
+  }else if(/Android/i.test(agent)){
+    showInstallGuide(
+      "안드로이드 설치 방법\n\n"+
+      "1. Chrome에서 UFC ALERT 사이트를 엽니다.\n"+
+      "2. 오른쪽 위 메뉴를 누릅니다.\n"+
+      "3. 앱 설치 또는 홈 화면에 추가를 선택합니다."
+    );
+  }else{
+    showInstallGuide(
+      "휴대폰 브라우저에서 사이트에 접속한 뒤 "+
+      "메뉴의 앱 설치 또는 홈 화면에 추가를 이용하세요."
+    );
+  }
+}
+
+// HTTPS 환경에서 서비스 워커 등록
+if(
+  "serviceWorker" in navigator &&
+  (location.protocol==="https:"||location.hostname==="localhost")
+){
+  window.addEventListener("load",()=>{
+    navigator.serviceWorker
+      .register("./sw.js")
+      .catch(console.warn);
+  });
+}
+
+// 첫 화면은 UFC 333
 render();
 
-// 최신 UFC 일정 데이터 확인
+// 최신 경기 정보는 별도로 불러오기
 loadSchedule();
 
-// 5분마다 최신 JSON 파일 확인
+// 5분마다 데이터 갱신
 setInterval(()=>{
   if(!document.hidden){
     loadSchedule();
   }
 },5*60*1000);
-
 </script>
 </body>
 </html>
