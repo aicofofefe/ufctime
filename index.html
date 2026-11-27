@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -82,7 +81,7 @@ a {text-decoration:none;color:inherit}
 .btn-light:hover {background:#f8f9fd}
 .nav-cta {min-height:40px}
 .hero {
-  padding:105px 0;
+  padding:115px 0;
   background:
     radial-gradient(circle at 80% 20%,#e2dcff,transparent 35%),
     radial-gradient(circle at 15% 85%,#ffdce9,transparent 38%),
@@ -90,10 +89,9 @@ a {text-decoration:none;color:inherit}
   overflow:hidden;
 }
 .hero-grid {
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  align-items:center;
-  gap:55px;
+  display:block;
+  text-align:center;
+  max-width:900px;
 }
 .eyebrow {
   color:var(--pink);
@@ -110,112 +108,23 @@ a {text-decoration:none;color:inherit}
 }
 .hero h1 em {color:var(--pink);font-style:normal}
 .hero p {
+  max-width:680px;
+  margin:0 auto;
   font-size:16px;
   line-height:1.9;
   color:#67728a;
 }
 .hero-buttons {
   display:flex;
+  justify-content:center;
   gap:12px;
   flex-wrap:wrap;
   margin-top:30px;
 }
 .small-note {
-  margin-top:20px;
+  margin:20px auto 0!important;
   color:#929caf!important;
   font-size:11px!important;
-}
-.showcase {
-  min-height:500px;
-  display:grid;
-  place-items:center;
-  position:relative;
-}
-.circle {
-  position:absolute;
-  width:420px;
-  height:420px;
-  border-radius:50%;
-  background:linear-gradient(140deg,#e3dfff,#ffe7ef);
-}
-.float {
-  position:absolute;
-  background:white;
-  box-shadow:0 15px 40px #111a3020;
-  border-radius:15px;
-  padding:16px;
-  font-size:12px;
-  font-weight:bold;
-  z-index:3;
-}
-.float.one {right:0;top:12%;transform:rotate(5deg)}
-.float.two {left:0;bottom:15%;transform:rotate(-5deg)}
-.phone {
-  position:relative;
-  width:285px;
-  height:490px;
-  padding:38px 15px 20px;
-  border:9px solid var(--navy);
-  border-radius:39px;
-  background:white;
-  transform:rotate(-5deg);
-  box-shadow:20px 30px 60px #151b4635;
-  z-index:2;
-  overflow:hidden;
-}
-.phone:before {
-  content:"";
-  position:absolute;
-  top:0;
-  left:50%;
-  transform:translateX(-50%);
-  width:90px;
-  height:19px;
-  border-radius:0 0 13px 13px;
-  background:var(--navy);
-}
-.phone-logo {
-  color:var(--pink);
-  text-align:center;
-  font-size:12px;
-  font-weight:900;
-  margin-bottom:25px;
-}
-.phone h3 {font-size:21px;margin:0 0 7px}
-.phone-sub {font-size:10px;color:#99a3b6}
-.phone-tabs {
-  background:#f1f3f8;
-  display:flex;
-  padding:4px;
-  border-radius:10px;
-  margin:20px 0 14px;
-  font-size:10px;
-  text-align:center;
-}
-.phone-tabs span {flex:1;padding:8px}
-.phone-tabs span:first-child {
-  background:var(--pink);
-  color:white;
-  border-radius:8px;
-}
-.bout {
-  background:#f7f8fc;
-  padding:13px;
-  border-radius:11px;
-  margin-bottom:10px;
-}
-.bout b {color:var(--pink);font-size:9px}
-.bout h4 {font-size:12px;margin:8px 0}
-.bout small {font-size:9px;color:#96a3b6}
-.phone-button {
-  margin-top:15px;
-  text-align:center;
-  padding:12px;
-  background:var(--pink);
-  border-radius:10px;
-  color:white;
-  font-size:10px;
-  font-weight:bold;
 }
 .section {padding:105px 0}
 .section.white {background:white}
@@ -337,9 +246,7 @@ a {text-decoration:none;color:inherit}
 .footer .logo {color:white;font-size:19px}
 .footer small {font-size:11px}
 @media(max-width:900px) {
-  .hero-grid {grid-template-columns:1fr}
   .cards,.steps {grid-template-columns:1fr}
-  .showcase {min-height:475px}
   .nav a:not(.btn) {display:none}
 }
 @media(max-width:540px) {
@@ -347,10 +254,6 @@ a {text-decoration:none;color:inherit}
   .hero {padding:65px 0}
   .hero h1 {font-size:43px}
   .hero p {font-size:14px}
-  .showcase {min-height:460px}
-  .circle {width:310px;height:310px}
-  .phone {transform:rotate(-3deg) scale(.9)}
-  .float {font-size:10px;padding:12px}
   .section {padding:75px 0}
   .card {min-height:auto}
   .footer-inner {flex-direction:column;align-items:flex-start}
@@ -400,40 +303,6 @@ a {text-decoration:none;color:inherit}
         경기 일정 확인과 알림 설정 기능을 제공합니다.
         실제 푸시 발송은 현재 연동 준비 중입니다.
       </p>
-    </div>
-
-    <div class="showcase">
-      <div class="circle"></div>
-      <div class="float one">🥊 원하는 경기만 선택</div>
-      <div class="float two">✓ 관심 경기 알림 관리</div>
-
-      <div class="phone">
-        <div class="phone-logo">UFC ALERT</div>
-        <h3>경기 목록</h3>
-        <div class="phone-sub">관심 있는 경기를 선택하세요</div>
-        <div class="phone-tabs">
-          <span>메인 경기</span>
-          <span>전체 대진</span>
-        </div>
-        <div class="bout">
-          <b>MAIN EVENT</b>
-          <h4>메인 이벤트</h4>
-          <small>대진 및 경기 일정 확인</small>
-        </div>
-        <div class="bout">
-          <b>CO-MAIN EVENT</b>
-          <h4>코메인 이벤트</h4>
-          <small>선수 및 체급 정보 확인</small>
-        </div>
-        <div class="bout">
-          <b>FIGHT CARD</b>
-          <h4>전체 대진표</h4>
-          <small>초기 예선부터 메인 카드까지</small>
-        </div>
-        <div class="phone-button">
-          알림 받을 경기 선택하기 →
-        </div>
-      </div>
     </div>
   </div>
 </section>
